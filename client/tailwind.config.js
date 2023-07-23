@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'chivo': ['Chivo Mono', 'monospace'],
+        'cour': ['Courgette', 'cursive'],
+        'sig': ['Sigmar', 'cursive']
+      },
+    },
   },
   plugins: [],
 }
