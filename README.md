@@ -4,4 +4,4 @@ Upload anything sushi! React to sushi pictures and write some nice comments for 
 
 ## Technologies
 
-React.js, GraphQL, Apollo, DynamoDB, Express.js, AWS S3
+React.js, AWS DynamoDB, Express.js, AWS S3, AWS Lambda, Claudia.js
