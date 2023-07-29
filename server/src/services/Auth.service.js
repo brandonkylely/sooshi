@@ -2,6 +2,7 @@
 const User = require("../models/User.model")
 const bcrypt = require("bcryptjs")
 const {v4: uuidv4} = require("uuid")
+const jwtAuth = require('../utils/JWTauth')
 
 exports.registerUser = async function(newUserInfo) {
     // newUserInfo is req.body from the Auth.controller.js register function
@@ -36,13 +37,14 @@ exports.registerUser = async function(newUserInfo) {
         throw new Error(err)
     }
 
-    // TODO loginUser(newUser) -> return JWT w/ newUser
+    var authToken = await exports.loginUser({"username": newUser.username, "password": newUserInfo.password})
 
-    return newUser
+    return authToken
+    // return newUser
 }
 
 exports.loginUser = async function(userInfo) {
-    // userInfo should be a JSON Object {"username":"adam","password":"adamPass"}
+    // userInfo should be a JSON Object
     // First, Check if the User even exists - In contrast to the above, in this case we do want there to be an existing User
     var existingUser
     try {
@@ -72,7 +74,9 @@ exports.loginUser = async function(userInfo) {
         throw new Error("INVALID_LOGIN_CREDENTIALS")
     }
 
-    // TODO - JWTs - We do need someway for our user to stay logged in after all
 
-    return {"message": "Login Successful"}
+    var authToken = await jwtAuth.generateAccessToken(existingUser[0].username)
+    
+    return {token: authToken}
+    // return {"message": "Login Successful"}
   }
