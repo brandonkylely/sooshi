@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
-// Dotenv config
 const dotenv = require('dotenv');
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // logger middleware
 const morgan = require("morgan")
@@ -9,12 +11,9 @@ app.use(morgan('dev'))
 
 app.use(require("./routes"))
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
 
 // Dynamoose configuration
-const dynamoose = require("dynamoose")
+const dynamoose = require("dynamoose");
 
 dotenv.config();
 

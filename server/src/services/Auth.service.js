@@ -8,7 +8,7 @@ exports.registerUser = async function(newUserInfo) {
     // newUserInfo is req.body from the Auth.controller.js register function
 
     // First, check is there's already a user registered with this username
-    var existingUser
+    let existingUser;
     try {
         // Runs a DynamoDB scan and returns the result
         existingUser = await User.scan({username: {eq: newUserInfo.username}}).exec()

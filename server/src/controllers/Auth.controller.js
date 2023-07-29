@@ -4,9 +4,9 @@ const authService = require('../services/Auth.service')
 exports.register = async function(req, res) {
     // req validation would be handled here - We're just assuming the request is properly formed
     // fine for a proof-of-concept, terrible in practice
-    const newUserInput = req.body
+    const newUserInput = req.body;
 
-    var newUser
+    let newUser;
     try {
         newUser = await authService.registerUser(newUserInput)
     } catch (err) {
@@ -23,9 +23,9 @@ exports.register = async function(req, res) {
 }
 
 exports.login = async function(req, res) {
-    const userInput = req.body
+    const userInput = req.body;
 
-    var existingUser
+    let existingUser;
     try {
         existingUser = await authService.loginUser(userInput)
     } catch (err) {
