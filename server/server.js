@@ -9,7 +9,7 @@ app.use(express.json());
 const morgan = require("morgan")
 app.use(morgan('dev'))
 
-app.use(require("./routes"))
+app.use(require("./src/routes"))
 
 
 // Dynamoose configuration
@@ -28,10 +28,5 @@ const ddb = new dynamoose.aws.ddb.DynamoDB({
 
 // Set DynamoDB instance to the Dynamoose DDB instance
 dynamoose.aws.ddb.set(ddb);
-
-
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '../client/build')));
-// }
 
 module.exports = app;
