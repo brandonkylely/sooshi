@@ -1,6 +1,3 @@
-// import { useQuery, useMutation } from '@apollo/client';
-// import { useParams, Link } from 'react-router-dom';
-
 
 function HomePage() {
 
