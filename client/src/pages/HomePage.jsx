@@ -1,5 +1,6 @@
 import { Collapse, Ripple, initTE } from "tw-elements";
 import { useEffect } from "react";
+import Navbar from "../components/Navbar";
 
 function HomePage() {
   useEffect(() => {
@@ -7,6 +8,7 @@ function HomePage() {
   }, []);
   return (
     <>
+      <Navbar />
       <div className="bg-hero-pattern bg-cover w-screen py-96 text-rose-50">
         <h1 className="text-center w-48 ml-32 text-6xl font-sig">Sooshi</h1>
         <div className="ml-44 mt-4 font-cour">
