@@ -39,8 +39,8 @@ exports.login = async function(req, res) {
     res.json(existingUser)
 }
 
-exports.protected = async function(req, res) {
+exports.post = async function(req, res) {
   console.log("Reached Protected Route")
 
-  res.send("/protected")
+  res.send("/post")
 }
