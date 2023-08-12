@@ -30,6 +30,7 @@ exports.registerUser = async function(newUserInfo) {
         newUser = await User.create({
             "id": uuid,
             "username": newUserInfo.username,
+            "email": newUserInfo.email,
             "password": hashedPass
         })
     } catch (err) {
