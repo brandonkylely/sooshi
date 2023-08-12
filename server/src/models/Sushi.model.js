@@ -1,7 +1,7 @@
 const dynamoose = require("dynamoose");
 
 const todoSchema = new dynamoose.Schema({
-    "id": String,
+    "id": String, // UUIDv4 ID
     "user": Object,
     "title": String,
     "content": String,
