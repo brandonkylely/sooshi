@@ -80,3 +80,14 @@ exports.loginUser = async function(userInfo) {
     return {token: authToken}
     // return {"message": "Login Successful"}
   }
+
+  // exports.getUser = async function(userId) {
+  //   // userId is the id of the User record we want to retrieve
+  //   try {
+  //       let user = await User.get(userId);
+  //   } catch (err) {
+  //       console.log(err);
+  //       throw new Error(err);
+  //   }
+  //   return user;
+  // }
