@@ -3,8 +3,8 @@ import decode from "jwt-decode";
 const tokenUtil = {
   login: (token) => localStorage.setItem("id_token", token),
   logout: () => {
-    console.log("Logging Out")
-    console.log(localStorage.getItem("id_token"));
+    // console.log("Logging Out")
+    // console.log(localStorage.getItem("id_token"));
     localStorage.removeItem("id_token");
   },
   getToken: () => {
@@ -21,7 +21,8 @@ const tokenUtil = {
   decode: (token) => decode(token),
   isExpired: (token) => {
     const decoded = decode(token);
-    return decoded.exp * 1000 < Date.now();
+    // 7200 -> 2 hours
+    return decoded.exp * 7200 < Date.now();
   },
 };
 

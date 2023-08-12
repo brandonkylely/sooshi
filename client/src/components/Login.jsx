@@ -1,17 +1,23 @@
 import { Ripple, Input, initTE } from "tw-elements";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
 import { userAtom } from "../state";
-
+import token from "../utils/token";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   useEffect(() => {
     initTE({ Input, Ripple });
   }, []);
 
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleFormChange = ({ target: { name, value } }) => {
+    setFormData({ ...formData, [name]: value });
+  };
 
   
   return (
@@ -21,6 +27,7 @@ function Login() {
         <div className="relative mb-6" data-te-input-wrapper-init>
           <input
             type="email"
+            name="email"
             className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
             id="exampleInputEmail2"
             aria-describedby="emailHelp"
@@ -39,6 +46,7 @@ function Login() {
         <div className="relative mb-6" data-te-input-wrapper-init>
           <input
             type="password"
+            name="password"
             className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
             id="exampleInputPassword2"
             placeholder="Password"

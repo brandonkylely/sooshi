@@ -6,7 +6,7 @@ import token from "../utils/token";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function RegisterForm() {
   useEffect(() => {
     initTE({ Input, Ripple });
   }, []);
@@ -132,4 +132,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterForm;

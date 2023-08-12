@@ -11,6 +11,11 @@ app.use(morgan('dev'))
 
 app.use(require("./src/routes"))
 
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}
 
 // Dynamoose configuration
 const dynamoose = require("dynamoose");
