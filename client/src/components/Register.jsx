@@ -25,19 +25,19 @@ function Register() {
     event.preventDefault();
     try {
       console.log(formData);
-      const { data } = await axios.post("/api/auth", formData);
+      const { data } = await axios.post("/api/auth/register", formData);
       console.log("DATA FROM BACKEND", data);
-      localStorage.setItem("userId", data.userId);
-      console.log(data.userId);
+      // localStorage.setItem("userId", data.userId);
+      // console.log(data.userId);
 
-      // Store token in local storage;
-      token.login(data.token);
-      const user = token.decode(data.token);
+      // // Store token in local storage;
+      // token.login(data.token);
+      // const user = token.decode(data.token);
       
-      // Update user state
-      setUser(user.data);
-      //maybe redirect to home page?
-      navigate("/feed");
+      // // Update user state
+      // setUser(user.data);
+      // //maybe redirect to home page?
+      // navigate("/feed");
     } catch (err) {
       console.log(err);
       //failed, what do?
@@ -53,6 +53,7 @@ function Register() {
           <div className="relative mb-6" data-te-input-wrapper-init>
             <input
               type="username"
+              name="username"
               className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput124"
               placeholder="Username"
@@ -69,6 +70,7 @@ function Register() {
           <div className="relative mb-6" data-te-input-wrapper-init>
             <input
               type="email"
+              name="email"
               className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput125"
               placeholder="Email address"
@@ -86,6 +88,7 @@ function Register() {
           <div className="relative mb-6" data-te-input-wrapper-init>
             <input
               type="password"
+              name="password"
               className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput126"
               placeholder="Password"
@@ -123,7 +126,7 @@ function Register() {
             data-te-ripple-init
             data-te-ripple-color="light"
           >
-            Sign up
+            Register
           </button>
         </form>
       </div>
