@@ -25,19 +25,17 @@ function Register() {
     event.preventDefault();
     try {
       console.log(formData);
-      const { data } = await axios.post("/api/auth/register", formData);
+      const { data } = await axios.post("http://localhost:3001/api/auth/register", formData);
       console.log("DATA FROM BACKEND", data);
-      // localStorage.setItem("userId", data.userId);
-      // console.log(data.userId);
 
-      // // Store token in local storage;
-      // token.login(data.token);
-      // const user = token.decode(data.token);
+      // Store token in local storage;
+      token.login(data.token);
+      const user = token.decode(data.token);
       
-      // // Update user state
-      // setUser(user.data);
-      // //maybe redirect to home page?
-      // navigate("/feed");
+      // Update user state
+      setUser(user.data);
+      //maybe redirect to home page?
+      navigate("/feed");
     } catch (err) {
       console.log(err);
       //failed, what do?
