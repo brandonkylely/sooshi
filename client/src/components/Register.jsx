@@ -1,23 +1,54 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { userAtom } from "../state";
+import token from "../utils/token";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   useEffect(() => {
     initTE({ Input, Ripple });
   }, []);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userName: "",
+    username: "",
     email: "",
     password: "",
   });
   const handleFormChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value });
   };
+  const [user, setUser] = useAtom(userAtom);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formData);
+      const { data } = await axios.post("/api/auth", formData);
+      console.log("DATA FROM BACKEND", data);
+      localStorage.setItem("userId", data.userId);
+      console.log(data.userId);
+
+      // Store token in local storage;
+      token.login(data.token);
+      const user = token.decode(data.token);
+      
+      // Update user state
+      setUser(user.data);
+      //maybe redirect to home page?
+      navigate("/feed");
+    } catch (err) {
+      console.log(err);
+      //failed, what do?
+      //maybe some error handling? display to user?
+    }
+  };
 
   return (
     <>
       <div className="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-        <form>
+        <form onSubmit={handleFormSubmit}>
           {/*username input*/}
           <div className="relative mb-6" data-te-input-wrapper-init>
             <input

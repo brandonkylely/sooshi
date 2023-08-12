@@ -1,41 +1,18 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect } from "react";
+import { userAtom } from "../state";
+
 
 function Login() {
   useEffect(() => {
     initTE({ Input, Ripple });
   }, []);
 
-    // const navigate = useNavigate();
   // const [formData, setFormData] = useState({
-  //   userName: "",
+  //   email: "",
   //   password: "",
   // });
-  // const handleFormChange = ({
-  //   target: { name, value },
-  // }) => {
-  //   setFormData({ ...formData, [name]: value });
-  // };
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     console.log(formData);
-  //     const data = await axios.post("/api/user/login", formData);
-  //     console.log("DATA FROM BACKEND", data.data);
-  //     token.login(data.data.token);
-  //     // got token, what do?
-  //     const user = token.decode(data.data.token);
-  //     localStorage.setItem("userId", data.data.userId);
-  //     setUser(user.data);
-  //     navigate("/search");
-  //   } catch (err) {
-  //     //this will either be Username not found!
-  //     //or Incorrect password!
-  //     //not sure how best to display
-  //     console.log(err);
-  //     //maybe some error handling? display to user?
-  //   }
-  // };
+
   
   return (
     <div className="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
