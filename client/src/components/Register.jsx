@@ -25,7 +25,7 @@ function Register() {
     event.preventDefault();
     try {
       console.log(formData);
-      const { data } = await axios.post("http://localhost:3001/api/auth/register", formData);
+      const { data } = await axios.post("/api/auth/register", formData);
       console.log("DATA FROM BACKEND", data);
 
       // Store token in local storage;
