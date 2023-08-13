@@ -13,7 +13,7 @@ function LoginForm() {
   }, []);
 
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const handleFormChange = ({ target: { name, value } }) => {
@@ -47,25 +47,26 @@ function LoginForm() {
   
   return (
     <div className="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-      <form>
-        {/*E-mail input*/}
-        <div className="relative mb-6" data-te-input-wrapper-init>
-          <input
-            type="email"
-            name="email"
-            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-            id="exampleInputEmail2"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-            autoComplete="email"
-          />
-          <label
-            htmlFor="exampleInputEmail2"
-            className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-          >
-            Email address
-          </label>
-        </div>
+      <form 
+      onSubmit={handleFormSubmit}
+      >
+          {/*username input*/}
+          <div className="relative mb-6" data-te-input-wrapper-init>
+            <input
+              type="username"
+              name="username"
+              className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+              id="exampleInput124"
+              placeholder="Username"
+              onChange={handleFormChange}
+            />
+            <label
+              htmlFor="exampleInput124"
+              className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
+            >
+              Username
+            </label>
+          </div>
 
         {/*Password input*/}
         <div className="relative mb-6" data-te-input-wrapper-init>
@@ -76,6 +77,7 @@ function LoginForm() {
             id="exampleInputPassword2"
             placeholder="Password"
             autoComplete="current-password"
+            onChange={handleFormChange}
           />
           <label
             htmlFor="exampleInputPassword2"
@@ -125,7 +127,7 @@ function LoginForm() {
         <p className="mt-6 text-center text-neutral-800 dark:text-neutral-200">
           Not a member?
           <a
-            href="#!"
+            href="/"
             className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
           >
             Register
