@@ -6,7 +6,8 @@ import token from "../utils/token";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function LoginForm() {
+  const navigate = useNavigate();
   useEffect(() => {
     initTE({ Input, Ripple });
   }, []);
@@ -17,6 +18,30 @@ function Login() {
   });
   const handleFormChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value });
+  };
+
+  const [user, setUser] = useAtom(userAtom);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formData);
+      const { data } = await axios.post("/api/auth/login", formData);
+      console.log("DATA FROM BACKEND", data);
+
+      // Store token in local storage;
+      token.login(data.token);
+      const user = token.decode(data.token);
+      
+      // Update user state
+      setUser(user.data);
+      //maybe redirect to home page?
+      navigate("/feed");
+    } catch (err) {
+      console.log(err);
+      //failed, what do?
+      //maybe some error handling? display to user?
+    }
   };
 
   
@@ -110,4 +135,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default LoginForm;
