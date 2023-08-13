@@ -5,3 +5,6 @@ Upload anything sushi! React to sushi pictures and write some nice comments for 
 ## Technologies
 
 React.js, AWS DynamoDB, Express.js, AWS S3, AWS Lambda, Claudia.js
+
+## Credit
+Sushi Banner Image by [Tamas Pap](https://unsplash.com/photos/zali_zGDWo8)

@@ -1,14 +1,16 @@
 const dynamoose = require("dynamoose");
 
-const todoSchema = new dynamoose.Schema({
-    "id": String, // UUIDv4 ID
-    "user": Object,
-    "title": String,
-    "content": String,
+const sushiSchema = new dynamoose.Schema({
+  "id": String, // UUIDv4 ID
+  "userId": {
+    type: Object,
+  },
+  "title": String,
+  "image": String,
 }, {
-    "timestamps": true
+  "timestamps": true
 })
 
-const Todo = dynamoose.model("Todo", todoSchema)
+const Sushi = dynamoose.model("Sushi", todoSchema)
 
-module.exports = Todo
+module.exports = Sushi
