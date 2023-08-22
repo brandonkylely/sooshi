@@ -18,7 +18,7 @@ function PostPage() {
     event.preventDefault();
     try {
       console.log(image);
-      const { data } = await axios.post("/api/auth/post", image);
+      const { data } = await axios.post("/api/auth/upload", image);
       console.log("DATA FROM BACKEND", data);
       
       navigate("/feed");
