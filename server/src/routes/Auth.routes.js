@@ -13,7 +13,7 @@ router.post('/login', authController.login)
 router.all('/protected', jwtAuth.authenticateToken, authController.protected)
 
 // upload photo using key defined below in upload.single.id
-router.post("/upload", jwtAuth.authenticateToken, PhotoUtils.upload.single("sushiImage"), authController.uploadPhoto);
+router.post("/upload", jwtAuth.authenticateToken, PhotoUtils.upload.single("sushiImage"), authController.uploadImage);
 
 
 module.exports = router;
