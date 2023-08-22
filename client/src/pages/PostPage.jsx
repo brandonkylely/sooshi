@@ -2,15 +2,31 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function PostPage() {
   const [image, setImage] = useState(null);
-  useEffect(() => {
-    console.log(image);
-  }, [image]);
+  // useEffect(() => {
+  //   console.log(image);
+  // }, [image]);
 
   const handleSetImage = (e) => {
     setImage(e.target.files[0]);
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(image);
+      const { data } = await axios.post("/api/auth/post", image);
+      console.log("DATA FROM BACKEND", data);
+      
+      navigate("/feed");
+    } catch (err) {
+      console.log(err);
+      //failed, what do?
+      //maybe some error handling? display to user?
+    }
   };
 
   const navigate = useNavigate();
@@ -23,7 +39,9 @@ function PostPage() {
     >
       <Navbar />
       <h1>Post Page</h1>
-      <form className="mb-3 w-80">
+      <form 
+      onSubmit={handleFormSubmit}
+      className="mb-3 w-80">
         <label
           htmlFor="formFile"
           className="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
