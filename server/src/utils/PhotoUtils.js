@@ -19,4 +19,4 @@ exports.fileFilter = (req, file, cb) => {
 };
 
 // defining the upload variable for the configuration of photo being uploaded
-exports.upload = multer({ storage: this.storage, fileFilter: this.filefilter });
+exports.upload = multer({ storage: this.storage, fileFilter: this.fileFilter });

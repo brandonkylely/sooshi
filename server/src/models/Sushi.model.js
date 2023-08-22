@@ -11,6 +11,6 @@ const sushiSchema = new dynamoose.Schema({
   "timestamps": true
 })
 
-const Sushi = dynamoose.model("Sushi", todoSchema)
+const Sushi = dynamoose.model("Sushi", sushiSchema)
 
 module.exports = Sushi

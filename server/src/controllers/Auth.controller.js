@@ -1,5 +1,6 @@
 const authService = require("../services/Auth.service");
-const Aws = require("@aws-sdk/client-s3");
+const Sushi = require("../models/Sushi.model");
+const Aws = require("aws-sdk");
 
 // Register New User
 exports.register = async function (req, res) {
@@ -55,10 +56,10 @@ exports.uploadImage = async function (req, res) {
    * TODO - update for AWS Sdk v3
    */
 
-  // const s3 = new Aws.S3({
-  //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  //   secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
-  // });
+  const s3 = new Aws.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
+  });
 
   console.log(req.file); // check data in console that is being uploaded
 
