@@ -1,7 +1,10 @@
 const dynamoose = require("dynamoose");
 
 const userSchema = new dynamoose.Schema({
-    "id": String, // UUIDv4 ID
+    "id": {
+      type: String, // UUIDv4 ID
+      hashKey: true, // Primary partition key
+    },
     "username": {
       type: String,
       required: true,

@@ -1,9 +1,12 @@
 const dynamoose = require("dynamoose");
 
 const sushiSchema = new dynamoose.Schema({
-  "id": String, // UUIDv4 ID
+  "id": {
+    type: String, // UUIDv4 ID
+    hashKey: true, // Primary partition key
+  },
   "userId": {
-    type: Object,
+    type: String,
   },
   "title": String,
   "image": String,

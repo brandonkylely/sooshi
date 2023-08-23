@@ -1,6 +1,6 @@
 const authService = require("../services/Auth.service");
 const Sushi = require("../models/Sushi.model");
-const Aws = require("@aws-sdk/client-s3");
+const AWS = require("@aws-sdk/client-s3");
 
 // Register New User
 exports.register = async function (req, res) {
@@ -52,18 +52,13 @@ exports.protected = async function (req, res) {
 exports.uploadImage = async function (req, res) {
   // Now creating the S3 instance which will be used in uploading photo to S3 bucket
 
-  /**
-   * TODO - update for AWS Sdk v3
-   */
-
-  const s3 = new Aws.S3({
+  const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
   console.log(req.file); // check data in console that is being uploaded
 
-  let s3ImgLocation;
   try {
     if (req.file) {
       const params = {
@@ -73,21 +68,21 @@ exports.uploadImage = async function (req, res) {
         ACL: "public-read", // defining the permissions to get public link
         ContentType: "image/jpeg", // necessary to define the image content-type to view photo in browswer with link
       };
-
-      // uploading photo using s3 instance and saving link in database
-      const data = await s3.upload(params).promise();
-
-      // if not then below code will be executed
-
-      console.log(data); // will give information about object in which photo is stored
-      s3ImgLocation = data.Location;
     }
+
+    // uploading photo using s3 instance and saving link in database
+    const data = await s3.upload(params).promise();
+
+    // if not then below code will be executed
+
+    console.log(data); // will give information about object in which photo is stored
     // save info in database
     const sushi = await Sushi.create({
       userId: req.user.id,
       title: req.body.title,
-      image: s3ImgLocation,
+      image: data.Location,
     });
+
     res.status(200).json(sushi);
   } catch (err) {
     console.log(err);
