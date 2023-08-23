@@ -41,6 +41,7 @@ function PostPage() {
       <h1>Post Page</h1>
       <form 
       onSubmit={handleFormSubmit}
+      encType="multipart/form-data"
       className="mb-3 w-80">
         <label
           htmlFor="formFile"
