@@ -1,4 +1,4 @@
-// dependencies needed for S3 storage of images
+// https://www.npmjs.com/package/multer
 const multer = require("multer");
 
 // creating the storage variable to upload the file and providing the destination folder,

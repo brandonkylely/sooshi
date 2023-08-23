@@ -1,6 +1,6 @@
 const authService = require("../services/Auth.service");
 const Sushi = require("../models/Sushi.model");
-const Aws = require("aws-sdk");
+const Aws = require("@aws-sdk/client-s3");
 
 // Register New User
 exports.register = async function (req, res) {
