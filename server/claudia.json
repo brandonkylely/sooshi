@@ -2,9 +2,9 @@
   "lambda": {
     "role": "sooshi-server-executor",
     "name": "sooshi-server",
-    "region": "us-east-1"
+    "region": "us-west-1"
   },
   "api": {
-    "id": "tm1nt985a2"
+    "id": "f997a554a1"
   }
 }
