@@ -49,7 +49,7 @@ exports.protected = async function (req, res) {
   res.send("/post");
 };
 
-exports.uploadImage = async function (req, res) {
+exports.upload = async function (req, res) {
   // Now creating the S3 instance which will be used in uploading photo to S3 bucket
 
   const client = new S3Client({

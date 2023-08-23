@@ -16,7 +16,7 @@ router.all('/protected', jwtAuth.authenticateToken, authController.protected)
 router.post("/upload", 
 // jwtAuth.authenticateToken,
 PhotoUtils.upload.single("image"),
-authController.uploadImage);
+authController.upload);
 
 
 module.exports = router;
