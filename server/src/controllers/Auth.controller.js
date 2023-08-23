@@ -58,14 +58,20 @@ exports.upload = async function (req, res) {
     region: "us-west-1",
   });
 
-  console.log(req.file); // check data in console that is being uploaded
+  console.log("req.file", req.file); // check data in console that is being uploaded
 
   try {
 
     if (req.file) {
+      // Create unique keys for each photo
+      const uid = req.decoded?.uid || req.body.userId
+      const datetime = Date.now().toString() 
+      const key = `${uid}_${datetime}_${req.file.originalname}`;
+
+
       const params = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME, // bucket name
-        Key: req.file.originalname, // name of image
+        Key: key, // name of image
         Body: req.file.buffer, // body which will contain the image in buffer format
         ACL: "public-read", // defining the permissions to get public link
         ContentType: "image/jpeg", // necessary to define the image content-type to view photo in browswer with link
@@ -76,12 +82,14 @@ exports.upload = async function (req, res) {
 
       // if not then below code will be executed
 
-      console.log(data); // will give information about object in which photo is stored
+      // console.log("data", data); // will give information about object in which photo is stored
+
       // save info in database
       const sushi = await Sushi.create({
-        userId: req.user.id,
+        id: req.body.id,
+        userId: req.body.userId,
         title: req.body.title,
-        image: data.Location,
+        image: key,
       });
 
       res.status(200).json(sushi);
