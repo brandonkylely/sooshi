@@ -18,5 +18,10 @@ router.post("/upload",
 PhotoUtils.upload.single("image"),
 authController.upload);
 
+// GET - /api/auth/getSushiFeed for getting the list of sushi posts
+router.get("/getSushiFeed", authController.getSushiFeed);
+
+// GET - /api/auth/getSushiURL for getting the signed URL of the photo
+router.get("/getSushiURL", authController.getSushiURL);
 
 module.exports = router;

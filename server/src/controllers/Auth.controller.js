@@ -104,11 +104,31 @@ exports.upload = async function (req, res) {
 };
 
 
+
+/**
+ * get Sushi Feed
+ * TODO: Add pagination
+*/
+exports.getSushiFeed = async function (req, res) { 
+  try {
+    // Find the latest 10 sushi posts
+    const sushiData = await Sushi.findAll({
+      limit: 10,
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(sushiData);
+  }
+  catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
 /**
  * get Single Sushi
  * 
  */
-exports.getSushiSingle = async function (req, res) { 
+exports.getSushiURL = async function (req, res) { 
     const { fileName, fileType } = req.query;
     const params = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
@@ -132,23 +152,4 @@ exports.getSushiSingle = async function (req, res) {
         console.error(err);
         next(err);
     }
-}
-
-/**
- * get Sushi Feed
- * TODO: Add pagination
- */
-exports.getSushiFeed = async function (req, res) { 
-  try {
-    // Find the latest 10 sushi posts
-    const sushiData = await Sushi.findAll({
-      limit: 10,
-      order: [['createdAt', 'DESC']]
-    });
-    res.json(sushiData);
-  }
-  catch (err) {
-    console.error(err);
-    next(err);
-  }
 }
