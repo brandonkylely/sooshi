@@ -1,6 +1,7 @@
 const authService = require("../services/Auth.service");
 const Sushi = require("../models/Sushi.model");
 const {PutObjectCommand, S3Client} = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 // Register New User
 exports.register = async function (req, res) {
@@ -73,7 +74,7 @@ exports.upload = async function (req, res) {
         Bucket: process.env.AWS_BUCKET_NAME, // bucket name
         Key: key, // name of image
         Body: req.file.buffer, // body which will contain the image in buffer format
-        ACL: "public-read", // defining the permissions to get public link
+        ACL: 'bucket-owner-full-control',
         ContentType: "image/jpeg", // necessary to define the image content-type to view photo in browswer with link
       });
 
@@ -101,3 +102,34 @@ exports.upload = async function (req, res) {
     res.send(err);
   }
 };
+
+
+/**
+ * get Single Sushi
+ * 
+ */
+exports.getSushi = async function (req, res) { 
+    const { fileName, fileType } = req.query;
+    const params = new PutObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: fileName,
+        ContentType: fileType,
+        ACL: 'bucket-owner-full-control'
+    });
+
+
+    const client = new S3Client({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      region: "us-west-1",
+    });
+
+    try {
+        const signedUrl = await getSignedUrl(client, params, { expiresIn: 60 });
+        console.log(signedUrl);
+        res.json({ signedUrl })
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
