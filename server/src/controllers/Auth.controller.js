@@ -108,11 +108,13 @@ exports.upload = async function (req, res) {
 /**
  * get Sushi Feed
  * TODO: Add pagination
+ * TODO: Check for sorting, might need to use .query() instead of .scan()
 */
 exports.getSushiFeed = async function (req, res) { 
   try {
-    // Find the latest 10 sushi posts
-    const sushiData = await Sushi.scan().exec();
+    // Find the latest 4 sushi posts
+    // .startAt(res.lastKey) - for pagination. lastKey is an object response from previous query
+    const sushiData = await Sushi.scan().limit(4).exec();
     res.json(sushiData);
   }
   catch (err) {
