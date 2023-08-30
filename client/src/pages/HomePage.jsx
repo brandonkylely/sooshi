@@ -21,7 +21,7 @@ function HomePage() {
             Sooshi
           </h1>
           <div className="ml-56 mt-4 font-cour">
-            ..."probably the best food out there"
+            ...&quot;probably the best food out there&quot;
           </div>
           <div className="w-[500px] ml-40 mt-4 flex justify-between font-chivo">
             {/* Register */}

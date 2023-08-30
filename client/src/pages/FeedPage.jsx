@@ -1,5 +1,5 @@
-import token from "../utils/token";
-import { useEffect } from "react";
+// import token from "../utils/token";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";

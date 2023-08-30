@@ -18,5 +18,6 @@ export default {
       }
     },
   },
+  /*eslint-env node*/
   plugins: [require("tw-elements/dist/plugin.cjs")],
 }

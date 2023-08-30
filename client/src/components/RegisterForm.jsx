@@ -1,6 +1,6 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { userAtom } from "../state";
 import token from "../utils/token";
 import axios from "axios";
@@ -19,7 +19,7 @@ function RegisterForm() {
   const handleFormChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value });
   };
-  const [user, setUser] = useAtom(userAtom);
+  const setUser = useSetAtom(userAtom);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
