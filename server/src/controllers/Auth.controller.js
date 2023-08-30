@@ -112,15 +112,12 @@ exports.upload = async function (req, res) {
 exports.getSushiFeed = async function (req, res) { 
   try {
     // Find the latest 10 sushi posts
-    const sushiData = await Sushi.findAll({
-      limit: 10,
-      order: [['createdAt', 'DESC']]
-    });
+    const sushiData = await Sushi.scan().exec();
     res.json(sushiData);
   }
   catch (err) {
     console.error(err);
-    next(err);
+    res.send(err);
   }
 }
 
@@ -149,6 +146,6 @@ exports.getSushiURL = async function (req, res) {
         res.json({ signedUrl })
     } catch (err) {
         console.error(err);
-        next(err);
+        res.send(err);
     }
 }
