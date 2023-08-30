@@ -1,6 +1,6 @@
 const authService = require("../services/Auth.service");
 const Sushi = require("../models/Sushi.model");
-const {PutObjectCommand, S3Client} = require("@aws-sdk/client-s3");
+const {PutObjectCommand, GetObjectCommand, S3Client} = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 // Register New User
@@ -129,12 +129,11 @@ exports.getSushiFeed = async function (req, res) {
  * 
  */
 exports.getSushiURL = async function (req, res) { 
-    const { fileName, fileType } = req.query;
-    const params = new PutObjectCommand({
+    // TODO: Add support for other file types
+    const { fileName } = req.query;
+    const params = new GetObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: fileName,
-        ContentType: fileType,
-        ACL: 'bucket-owner-full-control'
     });
 
 
@@ -145,8 +144,8 @@ exports.getSushiURL = async function (req, res) {
     });
 
     try {
-        const signedUrl = await getSignedUrl(client, params, { expiresIn: 60 });
-        console.log(signedUrl);
+        const signedUrl = await getSignedUrl(client, params, { expiresIn: 120 });
+        // console.log(signedUrl);
         res.json({ signedUrl })
     } catch (err) {
         console.error(err);
