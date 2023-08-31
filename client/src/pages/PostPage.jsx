@@ -40,7 +40,7 @@ function PostPage() {
     navigate("/feed");
   };
   return (
-    <div className="h-screen bg-gray-800 text-rose-50">
+    <div className="h-screen text-neutral-600">
       <Navbar />
       <div className="h-12 px-4 pt-1 justify-between flex">
         <h2 className="text-4xl font-medium leading-tight text-rose-400 font-sig">
@@ -64,7 +64,7 @@ function PostPage() {
         <div className="relative mb-12" data-te-input-wrapper-init>
           <input
             type="title"
-            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+            className="text-neutral-400 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
             id="inputTitle"
             aria-describedby="titleHelp"
             placeholder="Enter title"
