@@ -1,3 +1,5 @@
+import { Input, Ripple, initTE } from "tw-elements";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -10,6 +12,10 @@ function PostPage() {
   //   console.log(image);
   // }, [image]);
 
+  useEffect(() => {
+    initTE({ Input, Ripple });
+  }, []);
+
   const handleSetImage = (e) => {
     setImage(e.target.files[0]);
   };
@@ -20,7 +26,7 @@ function PostPage() {
       console.log(image);
       const { data } = await axios.post("/api/auth/upload", image);
       console.log("DATA FROM BACKEND", data);
-      
+
       navigate("/feed");
     } catch (err) {
       console.log(err);
@@ -34,20 +40,54 @@ function PostPage() {
     navigate("/feed");
   };
   return (
-    <div
-    // className="font-black font-chivo"
-    >
+    <div className="h-screen bg-gray-800 text-rose-50">
       <Navbar />
-      <h1>Post Page</h1>
-      <form 
-      onSubmit={handleFormSubmit}
-      encType="multipart/form-data"
-      className="mb-3 w-80">
+      <div className="h-12 px-4 pt-1 justify-between flex">
+        <h2 className="text-4xl font-medium leading-tight text-rose-400 font-sig">
+          Sooshi
+        </h2>
+        <button
+          type="button"
+          className="h-9 mt-1 font-sig inline-block rounded-md bg-danger px-5 pb-2 pt-2 text-sm uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-danger-600 focus:bg-danger-600 focus:outline-none focus:ring-0 active:bg-danger-700"
+          data-te-ripple-init
+          data-te-ripple-color="light"
+          onClick={handleNavigate}
+        >
+          Go to feed
+        </button>
+      </div>
+      <form
+        onSubmit={handleFormSubmit}
+        encType="multipart/form-data"
+        className="h-2/3 w-80 mx-auto pt-32"
+      >
+        <div className="relative mb-12" data-te-input-wrapper-init>
+          <input
+            type="title"
+            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+            id="inputTitle"
+            aria-describedby="titleHelp"
+            placeholder="Enter title"
+          />
+          <label
+            htmlFor="imputTitle"
+            className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+          >
+            Enter a title
+          </label>
+          <small
+            id="titleHelp"
+            className="absolute w-full dark:text-neutral-200"
+            data-te-input-helper-ref
+          >
+            Make it catchy!
+          </small>
+        </div>
         <label
           htmlFor="formFile"
-          className="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
+          className="mb-2 inline-block  dark:text-neutral-200"
         >
-          Upload a photo!
+          Upload a photo
         </label>
         <input
           onChange={handleSetImage}
@@ -56,12 +96,15 @@ function PostPage() {
           id="formFile"
         />
         <button
-        type="submit"
+          className="h-9 mt-10 font-sig inline-block rounded-md bg-danger px-5 pb-2 pt-2 text-sm uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-danger-600 focus:bg-danger-600 focus:outline-none focus:ring-0 active:bg-danger-700"
+          data-te-ripple-init
+          data-te-ripple-color="light"
+          type="submit"
         >
           Upload
         </button>
       </form>
-      <button onClick={handleNavigate}>Go to feed</button>
+
       <Footer />
     </div>
   );
