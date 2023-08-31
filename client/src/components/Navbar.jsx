@@ -1,7 +1,7 @@
 import { Collapse, Ripple, initTE } from "tw-elements";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import tokenUtil from "../utils/token";
+// import tokenUtil from "../utils/token";
 
 function Navbar() {
   useEffect(() => {
@@ -9,9 +9,9 @@ function Navbar() {
   }, []);
 
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate("");
-  };
+  // const handleNavigate = () => {
+  //   navigate("");
+  // };
 
   return (
     /* Main navigation container */
