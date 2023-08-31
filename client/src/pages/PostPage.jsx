@@ -5,8 +5,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import axios from "axios";
+import tokenUtil from "../utils/token";
 
 function PostPage() {
+  const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   // useEffect(() => {
   //   console.log(image);
@@ -19,15 +21,25 @@ function PostPage() {
   const handleSetImage = (e) => {
     setImage(e.target.files[0]);
   };
+  const handleSetTitle = (e) => {
+    setTitle(e.target.value);
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(image);
-      const { data } = await axios.post("/api/auth/upload", image);
+      const token = tokenUtil.getToken();
+      console.log("TOKEN", token);
+      const decodedUID = token.uid;
+      console.log("DECODED UID", decodedUID);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", image);
+      formData.append("decodedUID", decodedUID);
+      const { data } = await axios.post("/api/auth/upload", formData);
       console.log("DATA FROM BACKEND", data);
 
-      navigate("/feed");
+      // navigate("/feed");
     } catch (err) {
       console.log(err);
       //failed, what do?
@@ -64,14 +76,15 @@ function PostPage() {
         <div className="relative mb-12" data-te-input-wrapper-init>
           <input
             type="title"
-            className="text-neutral-400 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
             id="inputTitle"
             aria-describedby="titleHelp"
             placeholder="Enter title"
+            onChange={handleSetTitle}
           />
           <label
             htmlFor="imputTitle"
-            className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+            className="text-neutral-500 pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
           >
             Enter a title
           </label>

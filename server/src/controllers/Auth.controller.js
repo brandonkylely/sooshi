@@ -1,5 +1,6 @@
 const authService = require("../services/Auth.service");
 const Sushi = require("../models/Sushi.model");
+const User = require("../models/User.model");
 const {PutObjectCommand, GetObjectCommand, S3Client} = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
@@ -59,15 +60,14 @@ exports.upload = async function (req, res) {
     region: "us-west-1",
   });
 
-  console.log("req.file", req.file); // check data in console that is being uploaded
-
   try {
+    const userData = await User.scan({username: {eq: req.body.decodedUID}}).exec();
 
     if (req.file) {
       // Create unique keys for each photo
-      const uid = req.decoded?.uid || req.body.userId
+      const username = req.body.decodedUID ? req.body.decodedUID : req.body.userId
       const datetime = Date.now().toString() 
-      const key = `${uid}_${datetime}_${req.file.originalname}`;
+      const key = `${username}_${datetime}_${req.file.originalname}`;
 
 
       const params = new PutObjectCommand({
@@ -84,11 +84,11 @@ exports.upload = async function (req, res) {
       // if not then below code will be executed
 
       // console.log("data", data); // will give information about object in which photo is stored
-
+      const sushiId = await authService.generateUUID();
       // save info in database
       const sushi = await Sushi.create({
-        id: req.body.id,
-        userId: req.body.userId,
+        id: sushiId,
+        userId: userData[0].id,
         title: req.body.title,
         image: key,
       });

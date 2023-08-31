@@ -82,6 +82,11 @@ exports.loginUser = async function(userInfo) {
     // return {"message": "Login Successful"}
   }
 
+  exports.generateUUID = async function() {
+    const uuid = uuidv4();
+    return uuid;
+  }
+
   // exports.getUser = async function(userId) {
   //   // userId is the id of the User record we want to retrieve
   //   try {
