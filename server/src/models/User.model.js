@@ -20,7 +20,8 @@ const userSchema = new dynamoose.Schema({
     "password": {
       type: String,
       required: true,
-      minlength: 5,
+      // since we are storing a hashed password, min length is not required
+      // minlength: 5,
     },
     "sushi": {
       type: Object,
