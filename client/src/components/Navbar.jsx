@@ -2,17 +2,24 @@ import { Collapse, Ripple, initTE } from "tw-elements";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import tokenUtil from "../utils/token";
+import { useAtom } from "jotai";
+import { userAtom } from "../state";
 
 function Navbar() {
+  const [user, setUser] = useAtom(userAtom);
   useEffect(() => {
     initTE({ Collapse, Ripple });
   }, []);
 
   const navigate = useNavigate();
   const handleLogout = () => {
+    // delete token util
     tokenUtil.logout();
+    // delete user state
+    setUser(null);
     navigate("/");
   };
+
 
   return (
     /* Main navigation container */
@@ -105,16 +112,20 @@ function Navbar() {
         </div>
 
         {/* Right elements */}
-        <div className="relative flex items-center">
-          <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-            <button
-              className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-              onClick={handleLogout}
-              data-te-nav-link-ref
-            >
-              Sign Out
-            </button>
-          </div>
+
+          <div className="relative flex items-center">
+            {/* {user} */}
+        {user && (
+            <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <button
+                className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                onClick={handleLogout}
+                data-te-nav-link-ref
+              >
+                Sign Out
+              </button>
+            </div>
+        )}
         </div>
       </div>
     </nav>

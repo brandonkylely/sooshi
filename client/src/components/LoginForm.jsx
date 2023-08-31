@@ -25,16 +25,15 @@ function LoginForm() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData);
       const { data } = await axios.post("/api/auth/login", formData);
-      console.log("DATA FROM BACKEND", data);
 
       // Store token in local storage;
       token.login(data.token);
       const user = token.decode(data.token);
       
       // Update user state
-      setUser(user.data);
+      setUser(user);
+      
       //maybe redirect to home page?
       navigate("/feed");
     } catch (err) {
