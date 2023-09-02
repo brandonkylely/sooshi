@@ -48,7 +48,7 @@ exports.login = async function (req, res) {
 exports.protected = async function (req, res) {
   console.log("Reached Protected Route");
 
-  res.send("/post");
+  res.send("Reached Protected Route");
 };
 
 exports.upload = async function (req, res) {
