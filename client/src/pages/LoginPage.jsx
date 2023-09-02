@@ -1,8 +1,8 @@
 import Navbar from "../components/Navbar";
 import LoginForm from "../components/LoginForm";
+import Footer from "../components/Footer";
 
 function LoginPage() {
-
   return (
     <div className="overflow-hidden">
       <Navbar />
@@ -11,13 +11,12 @@ function LoginPage() {
           <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig">
             Sooshi
           </h1>
-          <div
-          className="w-[500px] ml-40 mt-4 text-black font-chivo">
-          <LoginForm />
-
+          <div className="w-[500px] ml-40 mt-4 text-black font-chivo">
+            <LoginForm />
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
