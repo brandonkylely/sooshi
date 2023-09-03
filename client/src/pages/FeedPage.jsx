@@ -1,12 +1,13 @@
 // import token from "../utils/token";
 // import { useEffect } from "react";
 import { Collapse, Ripple, initTE } from "tw-elements";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
 import SushiCard from "../components/SushiCard";
+import axios from "axios";
 
 function FeedPage() {
   // useEffect(() => {
@@ -20,11 +21,30 @@ function FeedPage() {
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
+    fetchSushiFeed();
   }, []);
 
   /**
    * Make API call to get all posts, render them in SushiCard components, and display them on the page.
    */
+  const [sushiData, setSushiData] = useState([]);
+  const [error, setError] = useState(false);
+  const fetchSushiFeed = async () => {
+    try {
+      const { data } = await axios.get("/api/auth/getSushiFeed" );
+      console.log("DATA FROM BACKEND", data);
+      setSushiData(data);
+      
+      setError(false);
+
+    } catch (err) {
+      console.log(err);
+      // Set Error to trigger toast
+      setError(true);
+    }
+  };
+
+
 
   const navigate = useNavigate();
   const handleNavigate = () => {
