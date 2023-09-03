@@ -21,6 +21,7 @@ function FeedPage() {
   useEffect(() => {
     initTE({ Collapse, Ripple });
     fetchSushiFeed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -37,10 +38,9 @@ function FeedPage() {
       for (let i = 0; i < data.length; i++) {
         data[i].signedURL = `${await fetchSushiURL(data[i].image)}`;
       }
-      
+
       setSushiData(data);
       console.log("SUSHI DATA", sushiData[0]);
-
     } catch (err) {
       console.log(err);
       // Set Error to trigger toast
@@ -50,7 +50,9 @@ function FeedPage() {
 
   const fetchSushiURL = async (s3Key) => {
     try {
-      const { data } = await axios.get(`/api/auth/getSushiURL?fileName=${s3Key}`);
+      const { data } = await axios.get(
+        `/api/auth/getSushiURL?fileName=${s3Key}`
+      );
       console.log("DATA FROM BACKEND", data);
 
       return data;
@@ -151,7 +153,7 @@ function FeedPage() {
       )}
       <div className="grid-cols-1 sm:grid md:grid-cols-2 ">
         {sushiData.map((sushi, index) => (
-          <SushiCard  key={index} title={sushi.title} image={sushi.signedURL} />
+          <SushiCard key={index} title={sushi.title} image={sushi.signedURL} />
         ))}
       </div>
       <Pagination />
