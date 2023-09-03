@@ -8,6 +8,8 @@ import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
 import SushiCard from "../components/SushiCard";
 import axios from "axios";
+import { paginationAtom } from "../state";
+import { useAtom } from "jotai";
 
 function FeedPage() {
   // useEffect(() => {
@@ -29,18 +31,30 @@ function FeedPage() {
    */
   const [sushiData, setSushiData] = useState([]);
   const [error, setError] = useState(false);
+  const [pagination, setPagination] = useAtom(paginationAtom);
 
   const fetchSushiFeed = async () => {
     try {
-      const { data } = await axios.get("/api/auth/getSushiFeed");
-      // console.log("DATA FROM BACKEND", data);
+      let query;
+      if (pagination.lastKeyData === null) {
+        query = "";
+      } else {
+        query = `?lastKeyData=${pagination.lastKeyData}`;
+      }
+      const { data } = await axios.get(`/api/auth/getSushiFeed${query}`);
+      console.log("DATA FROM BACKEND", data);
 
-      for (let i = 0; i < data.length; i++) {
-        data[i].signedURL = `${await fetchSushiURL(data[i].image)}`;
+      for (let i = 0; i < data.sushiData.length; i++) {
+        data.sushiData[i].signedURL = `${await fetchSushiURL(data.sushiData[i].image)}`;
       }
 
-      setSushiData(data);
-      console.log("SUSHI DATA", sushiData[0]);
+      setSushiData(data.sushiData);
+      console.log("SUSHI DATA", data);
+      const newPagination = {
+        pageNumber: pagination.pageNumber + 1,
+        lastKeyData: data.lastKey.id,
+      };
+      setPagination(newPagination);
     } catch (err) {
       console.log(err);
       // Set Error to trigger toast

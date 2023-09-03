@@ -123,14 +123,16 @@ exports.getSushiFeed = async function (req, res) {
     const lastKey = { id: lastKeyData }
     const limit = 4;
 
-    if (lastKey){
+    if (lastKeyData){
       const sushiData = await Sushi.scan().limit(limit).startAt(lastKey).exec();
-      return res.json(sushiData);
+      console.log(sushiData);
+      return res.json({sushiData, lastKey: sushiData.lastKey});
     } else {
       const sushiData = await Sushi.scan().limit(limit).exec();
-      return res.json(sushiData);
+      console.log(sushiData);
+      return res.json({sushiData, lastKey: sushiData.lastKey});
     }
-    
+
   } catch (err) {
     console.error(err);
     res.send(err);
