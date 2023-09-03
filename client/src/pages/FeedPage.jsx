@@ -19,6 +19,9 @@ function FeedPage() {
   //   token.logout();
   //   window.location.href = "/";
   // }
+  const [sushiData, setSushiData] = useState([]);
+  const [error, setError] = useState(false);
+  const [pagination, setPagination] = useAtom(paginationAtom);
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
@@ -26,12 +29,14 @@ function FeedPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    fetchSushiFeed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination.pageNumber]);
+
   /**
    * Make API call to get all posts, render them in SushiCard components, and display them on the page.
    */
-  const [sushiData, setSushiData] = useState([]);
-  const [error, setError] = useState(false);
-  const [pagination, setPagination] = useAtom(paginationAtom);
 
   const fetchSushiFeed = async () => {
     try {
@@ -42,16 +47,16 @@ function FeedPage() {
         query = `?lastKeyData=${pagination.lastKeyData}`;
       }
       const { data } = await axios.get(`/api/auth/getSushiFeed${query}`);
-      console.log("DATA FROM BACKEND", data);
+      // console.log("DATA FROM BACKEND", data);
 
       for (let i = 0; i < data.sushiData.length; i++) {
         data.sushiData[i].signedURL = `${await fetchSushiURL(data.sushiData[i].image)}`;
       }
 
       setSushiData(data.sushiData);
-      console.log("SUSHI DATA", data);
+
       const newPagination = {
-        pageNumber: pagination.pageNumber + 1,
+        pageNumber: pagination.pageNumber,
         lastKeyData: data.lastKey.id,
       };
       setPagination(newPagination);
@@ -67,7 +72,7 @@ function FeedPage() {
       const { data } = await axios.get(
         `/api/auth/getSushiURL?fileName=${s3Key}`
       );
-      console.log("DATA FROM BACKEND", data);
+      // console.log("DATA FROM BACKEND", data);
 
       return data;
     } catch (err) {

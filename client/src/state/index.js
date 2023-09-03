@@ -5,4 +5,4 @@ import { atom } from "jotai";
  */
 
 export const userAtom = atom(null);
-export const paginationAtom = atom({ pageNumber: 0, lastKeyData: null });
+export const paginationAtom = atom({ pageNumber: 1, lastKeyData: null });
