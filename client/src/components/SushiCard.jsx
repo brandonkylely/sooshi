@@ -23,7 +23,7 @@ function SushiCard(props) {
         <img
           className="rounded-t-lg max-h-96"
           src={props.image}
-          alt={props.title}
+          alt={props.title + " alt"}
         />
       </a>
       <div className="p-6">

@@ -145,7 +145,7 @@ exports.getSushiURL = async function (req, res) {
     try {
         const signedUrl = await getSignedUrl(client, params, { expiresIn: 120 });
         // console.log(signedUrl);
-        res.json({ signedUrl })
+        res.json(signedUrl)
     } catch (err) {
         console.error(err);
         res.send(err);
