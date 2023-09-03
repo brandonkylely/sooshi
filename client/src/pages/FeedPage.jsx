@@ -17,6 +17,7 @@ function FeedPage() {
   //   window.location.href = "/";
   // }
 
+
   useEffect(() => {
     initTE({ Collapse, Ripple });
   }, []);
@@ -50,10 +51,9 @@ function FeedPage() {
         onClick={handleNavigate}>Post</button> */}
       </div>
       <div className="grid-cols-1 sm:grid md:grid-cols-2 ">
-        <SushiCard />
-        <SushiCard />
-        <SushiCard />
-        <SushiCard />
+        {/* {sushiData.map((sushi) => {
+        <SushiCard title ={sushi.title} image = {sushi.image}/>
+        })} */}
       </div>
       <Pagination />
       <Footer />

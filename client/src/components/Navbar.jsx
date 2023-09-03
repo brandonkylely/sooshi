@@ -95,7 +95,7 @@ function Navbar() {
                 href="#"
                 data-te-nav-link-ref
               >
-                Team
+                Developer
               </a>
             </li>
             {/* Projects link */}

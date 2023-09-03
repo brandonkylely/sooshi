@@ -24,6 +24,10 @@ function PostPage() {
   const handleSetTitle = (e) => {
     setTitle(e.target.value);
   };
+ const navigate = useNavigate();
+ const handleNavigate = () => {
+    navigate("/feed");
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -38,8 +42,7 @@ function PostPage() {
       formData.append("decodedUID", decodedUID);
       const { data } = await axios.post("/api/auth/upload", formData);
       console.log("DATA FROM BACKEND", data);
-
-      // navigate("/feed");
+      navigate("/feed");
     } catch (err) {
       console.log(err);
       //failed, what do?
@@ -47,10 +50,6 @@ function PostPage() {
     }
   };
 
-  const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate("/feed");
-  };
   return (
     <div className="h-screen text-neutral-600">
       <Navbar />
