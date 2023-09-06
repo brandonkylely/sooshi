@@ -15,8 +15,8 @@ export default defineConfig(({ command, mode }) => {
       ...defaultConfig,
       server: {
         proxy: {
-          '/v1': {
-            target: isDev ? 'https://127.0.0.1:8080' : 'https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest',
+          '/api': {
+            target: isDev ? 'https://localhost:3001' : 'https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest',
             changeOrigin: isDev,
             secure: !isDev,
             ws: true,
