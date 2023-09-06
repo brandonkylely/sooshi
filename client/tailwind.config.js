@@ -13,7 +13,7 @@ export default {
         'sig': ['Sigmar', 'cursive']
       },
       backgroundImage: {
-        'hero-pattern': "url('./src/assets/sooshi-hero.jpg')",
+        'hero-pattern': "url('./sooshi-hero.jpg')",
         // 'footer-texture': "url('/img/footer-texture.png')",
       }
     },
