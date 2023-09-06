@@ -57,11 +57,20 @@ function FeedPage() {
       }
 
       setSushiData(data.sushiData);
+      let newPagination;
+      // prevents error if last ket doesnt exist, IE: reaching the last page
+      if (data.lastKey) {
+        newPagination = {
+          pageNumber: pagination.pageNumber,
+          lastKeyData: data.lastKey.id
+        };
+      } else {
+        newPagination = {
+          pageNumber: pagination.pageNumber,
+          lastKeyData: null
+        };
+      }
 
-      const newPagination = {
-        pageNumber: pagination.pageNumber,
-        lastKeyData: data.lastKey.id,
-      };
       console.log("NEW PAGINATION", newPagination);
       setPagination(newPagination);
     } catch (err) {
