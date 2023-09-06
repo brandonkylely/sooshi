@@ -21,7 +21,7 @@ function SushiCard(props) {
     >
       <a href="#!">
         <img
-          className="rounded-t-lg max-h-96"
+          className="rounded-t-lg w-1/2 mx-auto object-scale-down max-h-[40rem]"
           src={props.image}
           alt={props.title + " alt"}
         />

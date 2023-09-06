@@ -21,12 +21,11 @@ function FeedPage() {
   //   window.location.href = "/";
   // }
   const [sushiData, setSushiData] = useState([]);
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
   const [pagination, setPagination] = useAtom(paginationAtom);
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
-    setError(false);
     fetchSushiFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -175,7 +174,7 @@ function FeedPage() {
           </div>
         </div>
       )}
-      <div className="grid-cols-1 sm:grid md:grid-cols-2 ">
+      <div className="grid-cols-1 sm:grid md:grid-cols-1 ">
         {sushiData.map((sushi, index) => (
           <div key={index}>
             <Suspense fallback={<div>Loading...</div>}>
