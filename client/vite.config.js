@@ -7,7 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3001",
+        target: import.meta.env.NODE_ENV === 'production'
+          ? "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest" // Deployed API
+          : "http://localhost:3001", // Local API
         changeOrigin: true,
         secure: false,
         ws: true,
