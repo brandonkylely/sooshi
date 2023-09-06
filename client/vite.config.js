@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 const defaultConfig = {
+  base: '/sooshi/',
   plugins: [react()],
 }
 

@@ -2,7 +2,6 @@
   "name": "sooshi-client",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://brandonkylely.github.io/sooshi/",
   "type": "module",
   "scripts": {
     "dev": "vite",
