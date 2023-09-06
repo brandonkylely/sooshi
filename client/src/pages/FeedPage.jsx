@@ -1,12 +1,13 @@
 // import token from "../utils/token";
 // import { useEffect } from "react";
 import { Collapse, Ripple, initTE } from "tw-elements";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
-import SushiCard from "../components/SushiCard";
+// import SushiCard from "../components/SushiCard";
+const SushiCard = lazy(() => import("../components/SushiCard"));
 import axios from "axios";
 import { paginationAtom } from "../state";
 import { useAtom } from "jotai";
@@ -20,11 +21,12 @@ function FeedPage() {
   //   window.location.href = "/";
   // }
   const [sushiData, setSushiData] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [pagination, setPagination] = useAtom(paginationAtom);
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
+    setError(false);
     fetchSushiFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -50,7 +52,9 @@ function FeedPage() {
       // console.log("DATA FROM BACKEND", data);
 
       for (let i = 0; i < data.sushiData.length; i++) {
-        data.sushiData[i].signedURL = `${await fetchSushiURL(data.sushiData[i].image)}`;
+        data.sushiData[i].signedURL = `${await fetchSushiURL(
+          data.sushiData[i].image
+        )}`;
       }
 
       setSushiData(data.sushiData);
@@ -59,6 +63,7 @@ function FeedPage() {
         pageNumber: pagination.pageNumber,
         lastKeyData: data.lastKey.id,
       };
+      console.log("NEW PAGINATION", newPagination);
       setPagination(newPagination);
     } catch (err) {
       console.log(err);
@@ -172,7 +177,11 @@ function FeedPage() {
       )}
       <div className="grid-cols-1 sm:grid md:grid-cols-2 ">
         {sushiData.map((sushi, index) => (
-          <SushiCard key={index} title={sushi.title} image={sushi.signedURL} />
+          <div key={index}>
+            <Suspense fallback={<div>Loading...</div>}>
+              <SushiCard title={sushi.title} image={sushi.signedURL} />
+            </Suspense>
+          </div>
         ))}
       </div>
       <Pagination />

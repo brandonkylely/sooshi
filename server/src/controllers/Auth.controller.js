@@ -121,7 +121,7 @@ exports.getSushiFeed = async function (req, res) {
     // Pagination
     const { lastKeyData } = req.query;
     const lastKey = { id: lastKeyData }
-    const limit = 4;
+    const limit = 10;
 
     if (lastKeyData){
       const sushiData = await Sushi.scan().limit(limit).startAt(lastKey).exec();
@@ -129,7 +129,7 @@ exports.getSushiFeed = async function (req, res) {
       return res.json({sushiData, lastKey: sushiData.lastKey});
     } else {
       const sushiData = await Sushi.scan().limit(limit).exec();
-      console.log(sushiData);
+      // console.log(sushiData);
       return res.json({sushiData, lastKey: sushiData.lastKey});
     }
 
