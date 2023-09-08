@@ -7,9 +7,8 @@ const defaultConfig = {
   plugins: [react()],
 };
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command }) => {
   if (command === "serve") {
-    const isDev = mode === "development";
 
     return {
       ...defaultConfig,
@@ -17,8 +16,8 @@ export default defineConfig(({ command, mode }) => {
         proxy: {
           "/api": {
             target: "http://localhost:3001/",
-            changeOrigin: isDev,
-            secure: !isDev,
+            changeOrigin: true,
+            secure: false,
             ws: true,
             configure: (proxy) => {
               proxy.on("error", (err) => {
@@ -50,9 +49,9 @@ export default defineConfig(({ command, mode }) => {
         proxy: {
           "/api": {
             target:
-              "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest",
-            changeOrigin: isDev,
-            secure: !isDev,
+              "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/",
+            changeOrigin: true,
+            secure: false,
             ws: true,
             configure: (proxy) => {
               proxy.on("error", (err) => {
