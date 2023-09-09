@@ -20,6 +20,9 @@ function Navbar() {
     navigate("/");
   };
 
+  const handleNavigateToFeed = () => {
+    navigate("/feed");
+  };
 
   return (
     /* Main navigation container */
@@ -78,44 +81,54 @@ function Navbar() {
             className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
             data-te-navbar-nav-ref
           >
+            {/* Home link */}
             <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              {/* Dashboard link */}
-              <a
+              <button
                 className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
-                href="#"
+                onClick={handleNavigateToFeed}
+                data-te-nav-link-ref
+              >
+                🍣
+              </button>
+            </li>
+            {/* Feed link */}
+            <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <button
+                className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
+                onClick={handleNavigateToFeed}
+                data-te-nav-link-ref
+              >
+                Feed
+              </button>
+            </li>
+            {/* Dashboard link */}
+            {/* <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <button
+                className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                onClick={handleNavigateToFeed}
                 data-te-nav-link-ref
               >
                 Dashboard
-              </a>
-            </li>
-            {/* Team link */}
+              </button>
+            </li> */}
+            {/* Post link */}
             <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              <a
+              <button
                 className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                href="#"
+                onClick={handleNavigateToFeed}
                 data-te-nav-link-ref
               >
-                Developer
-              </a>
-            </li>
-            {/* Projects link */}
-            <li className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-              <a
-                className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                href="#"
-                data-te-nav-link-ref
-              >
-                Projects
-              </a>
+                Post
+              </button>
             </li>
           </ul>
         </div>
 
         {/* Right elements */}
 
-          <div className="relative flex items-center">
-            {/* {user} */}
-        {user && (
+        <div className="relative flex items-center">
+          {/* {user} */}
+          {user && (
             <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
               <button
                 className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
@@ -125,7 +138,7 @@ function Navbar() {
                 Sign Out
               </button>
             </div>
-        )}
+          )}
         </div>
       </div>
     </nav>
