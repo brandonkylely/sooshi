@@ -71,7 +71,7 @@ exports.upload = async function (req, res) {
     if (req.file) {
       // Create unique keys for each photo
       const datetime = Date.now().toString();
-      const key = `${userData[0].username}_${datetime}_${req.file.originalname}`;
+      const key = `${req.body.decodedUID}_${datetime}_${req.file.originalname}`;
 
       const params = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME, // bucket name
