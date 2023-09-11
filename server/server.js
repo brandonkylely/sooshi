@@ -9,6 +9,19 @@ app.use(express.json());
 const morgan = require("morgan");
 app.use(morgan("dev"));
 
+// CORS middleware
+app.use((req, res, next) => {
+  const allowedOrigins = ['http://localhost:4173', 'http://localhost:5173', 'https://sooshi.vercel.app', 'https://sooshi-brandonkylely.vercel.app'];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
+
 app.use(require("./src/routes"));
 
 if (process.env.NODE_ENV === "production") {
