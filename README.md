@@ -2,6 +2,10 @@
 
 Sooshi is a social media application focused on everything sushi. Browse images of fine Japanese cuisine shared from users around the globe.
 
+## Deployment
+
+https://sooshi.vercel.app/feed
+
 ## Technologies
 
 Frameworks and Libraries: React.js, Express.js, JWT, Dynamoose, Vite, TailwindCSS
