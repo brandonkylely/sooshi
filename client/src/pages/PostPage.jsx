@@ -33,15 +33,15 @@ function PostPage() {
     event.preventDefault();
     try {
       const token = tokenUtil.getToken();
-      console.log("TOKEN", token);
+      // console.log("TOKEN", token);
       const decodedUID = token.uid;
-      console.log("DECODED UID", decodedUID);
+      // console.log("DECODED UID", decodedUID);
       const formData = new FormData();
       formData.append("title", title);
       formData.append("image", image);
       formData.append("decodedUID", decodedUID);
       const { data } = await axios.post("/api/auth/upload", formData);
-      console.log("DATA FROM BACKEND", data);
+      // console.log("DATA FROM BACKEND", data);
       navigate("/feed");
     } catch (err) {
       console.log(err);

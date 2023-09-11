@@ -29,7 +29,7 @@ function LoginForm() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("/api/auth/login", formData);
+      const { data } = await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/login", formData);
 
       // Store token in local storage;
       token.login(data.token);

@@ -29,9 +29,9 @@ function RegisterForm() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData);
-      const { data } = await axios.post("/api/auth/register", formData);
-      console.log("DATA FROM BACKEND", data);
+      // console.log(formData);
+      const { data } = await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/register", formData);
+      // console.log("DATA FROM BACKEND", data);
 
       // Store token in local storage;
       token.login(data.token);

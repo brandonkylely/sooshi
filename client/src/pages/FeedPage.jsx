@@ -47,7 +47,7 @@ function FeedPage() {
       } else {
         query = `?lastKeyData=${pagination.lastKeyData}`;
       }
-      const { data } = await axios.get(`/api/auth/getSushiFeed${query}`);
+      const { data } = await axios.get(`https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/getSushiFeed${query}`);
       // console.log("DATA FROM BACKEND", data);
 
       for (let i = 0; i < data.sushiData.length; i++) {
