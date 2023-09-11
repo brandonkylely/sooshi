@@ -7,12 +7,10 @@ const {
   S3Client,
 } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
-const { parse } = require("uuid");
 
 // Register New User
 exports.register = async function (req, res) {
-  // req validation would be handled here - We're just assuming the request is properly formed
-  // fine for a proof-of-concept, terrible in practice
+  // TODO validate user input
   const newUserInput = req.body;
 
   let newUser;
@@ -72,11 +70,8 @@ exports.upload = async function (req, res) {
 
     if (req.file) {
       // Create unique keys for each photo
-      const username = req.body.decodedUID
-        ? req.body.decodedUID
-        : req.body.userId;
       const datetime = Date.now().toString();
-      const key = `${username}_${datetime}_${req.file.originalname}`;
+      const key = `${userData[0].username}_${datetime}_${req.file.originalname}`;
 
       const params = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME, // bucket name
@@ -101,7 +96,7 @@ exports.upload = async function (req, res) {
         image: key,
       });
 
-      res.status(200).json(sushi);
+      res.status(200).json("Photo uploaded successfully");
     } else {
       return res.status(400).json({ message: "No file uploaded." });
     }
@@ -120,19 +115,18 @@ exports.getSushiFeed = async function (req, res) {
   try {
     // Pagination
     const { lastKeyData } = req.query;
-    const lastKey = { id: lastKeyData }
+    const lastKey = { id: lastKeyData };
     const limit = 10;
 
-    if (lastKeyData){
+    if (lastKeyData) {
       const sushiData = await Sushi.scan().limit(limit).startAt(lastKey).exec();
       console.log(sushiData);
-      return res.json({sushiData, lastKey: sushiData.lastKey});
+      return res.json({ sushiData, lastKey: sushiData.lastKey });
     } else {
       const sushiData = await Sushi.scan().limit(limit).exec();
       // console.log(sushiData);
-      return res.json({sushiData, lastKey: sushiData.lastKey});
+      return res.json({ sushiData, lastKey: sushiData.lastKey });
     }
-
   } catch (err) {
     console.error(err);
     res.send(err);
