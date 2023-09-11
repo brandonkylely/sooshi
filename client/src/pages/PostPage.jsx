@@ -40,7 +40,7 @@ function PostPage() {
       formData.append("title", title);
       formData.append("image", image);
       formData.append("decodedUID", decodedUID);
-      const { data } = await axios.post("/api/auth/upload", formData);
+      await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/upload", formData);
       // console.log("DATA FROM BACKEND", data);
       navigate("/feed");
     } catch (err) {

@@ -83,7 +83,7 @@ function FeedPage() {
   const fetchSushiURL = async (s3Key) => {
     try {
       const { data } = await axios.get(
-        `/api/auth/getSushiURL?fileName=${s3Key}`
+        `https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/getSushiURL?fileName=${s3Key}`
       );
       // console.log("DATA FROM BACKEND", data);
 
