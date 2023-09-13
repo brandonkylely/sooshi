@@ -11,16 +11,26 @@ app.use(morgan("dev"));
 
 // CORS middleware
 app.use((req, res, next) => {
-  const allowedOrigins = ['http://localhost:4173', 'http://localhost:5173', 'https://sooshi.vercel.app', 'https://sooshi-brandonkylely.vercel.app'];
+  const allowedOrigins = [
+    "http://localhost:4173",
+    "http://localhost:5173",
+    "https://sooshi.vercel.app",
+    "https://sooshi-brandonkylely.vercel.app",
+  ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
-       res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  res.append('Access-Control-Allow-Methods', 'OPTIONS, GET,PUT,POST,DELETE');
-  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  res.append("Access-Control-Allow-Methods", "OPTIONS, GET,PUT,POST,DELETE");
+  res.append("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.append("Access-Control-Allow-Credentials", "true");
+
   next();
 });
 
+app.options("/*", (_, res) => {
+  res.sendStatus(200);
+});
 
 app.use(require("./src/routes"));
 
