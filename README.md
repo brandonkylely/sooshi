@@ -4,7 +4,7 @@ Sooshi is a social media application focused on everything sushi. Browse images 
 
 ## Deployment
 
-https://sooshi.vercel.app/feed
+https://sooshi.vercel.app/
 
 ## Technologies
 
