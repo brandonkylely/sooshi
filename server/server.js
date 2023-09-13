@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  res.append("Access-Control-Allow-Methods", "OPTIONS, GET,PUT,POST,DELETE");
+  res.append("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE");
   res.append("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.append("Access-Control-Allow-Credentials", "true");
 
