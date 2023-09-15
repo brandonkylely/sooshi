@@ -38,7 +38,7 @@ function Navbar() {
   };
 
   // Dev only
-  const [dev, setDev] = useAtom(devAtom);
+  const [dev] = useAtom(devAtom);
   const [devAPI, setDevAPI] = useAtom(devAPIAtom);
   const switchAPI = () => {
     setDevAPI(!devAPI);

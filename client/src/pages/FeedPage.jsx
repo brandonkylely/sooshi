@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import SushiCard from "../components/SushiCard";
 import Loading from "../components/Loading";
 import axios from "axios";
-import { paginationAtom, feedLoadingAtom } from "../state";
+import { paginationAtom, feedLoadingAtom, devAPIAtom } from "../state";
 import { useAtom } from "jotai";
 
 function FeedPage() {
@@ -24,6 +24,7 @@ function FeedPage() {
   const [error, setError] = useState(false);
   const [pagination, setPagination] = useAtom(paginationAtom);
   const [feedLoading, setFeedLoading] = useAtom(feedLoadingAtom);
+  const [devAPI] = useAtom(devAPIAtom);
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
@@ -50,7 +51,13 @@ function FeedPage() {
       } else {
         query = `?lastKeyData=${pagination.lastKeyData}`;
       }
-      const { data } = await axios.get(`https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/getSushiFeed${query}`);
+      let apiURL;
+      if (devAPI){
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL = "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
+      const { data } = await axios.get(`${apiURL}/api/auth/getSushiFeed${query}`);
       // console.log("DATA FROM BACKEND", data);
 
       for (let i = 0; i < data.sushiData.length; i++) {
@@ -88,8 +95,14 @@ function FeedPage() {
 
   const fetchSushiURL = async (s3Key) => {
     try {
+      let apiURL;
+      if (devAPI){
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL = "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
       const { data } = await axios.get(
-        `https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/getSushiURL?fileName=${s3Key}`
+        `${apiURL}/api/auth/getSushiURL?fileName=${s3Key}`
       );
       // console.log("DATA FROM BACKEND", data);
 
