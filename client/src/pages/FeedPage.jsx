@@ -78,7 +78,7 @@ function FeedPage() {
       setPagination(newPagination);
       setTimeout(() => {
         setFeedLoading(false);
-      }, 50);
+      }, 30);
     } catch (err) {
       console.log(err);
       // Set Error to trigger toast
