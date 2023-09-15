@@ -33,6 +33,7 @@ function FeedPage() {
   }, []);
 
   useEffect(() => {
+    setFeedLoading(true);
     fetchSushiFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.pageNumber]);
@@ -75,6 +76,9 @@ function FeedPage() {
 
       // console.log("NEW PAGINATION", newPagination);
       setPagination(newPagination);
+      setTimeout(() => {
+        setFeedLoading(false);
+      }, 50);
     } catch (err) {
       console.log(err);
       // Set Error to trigger toast
