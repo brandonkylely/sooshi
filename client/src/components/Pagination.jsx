@@ -3,12 +3,21 @@ import { useAtom } from "jotai";
 
 function Pagination() {
   const [pagination, setPagination] = useAtom(paginationAtom);
+
+  const handlePreviousPage = () => {
+    setPagination({
+      pageNumber: pagination.pageNumber - 1,
+    });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    console.log("pagination", pagination);
+  };
+
   const handleNextPage = () => {
     setPagination({
       pageNumber: pagination.pageNumber + 1,
-      lastKeyData: pagination.lastKeyData,
     });
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    console.log("pagination", pagination);
   };
 
   return (
@@ -18,7 +27,10 @@ function Pagination() {
           {pagination.pageNumber === 1 ? (
             <div></div>
           ) : (
-            <button className="relative block rounded bg-transparent px-3 py-1.5 text-md text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white">
+            <button
+              className="relative block rounded bg-transparent px-3 py-1.5 text-md text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+              onClick={handlePreviousPage}
+            >
               Previous
             </button>
           )}
