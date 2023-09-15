@@ -1,15 +1,15 @@
 // import token from "../utils/token";
 // import { useEffect } from "react";
 import { Collapse, Ripple, initTE } from "tw-elements";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
-// import SushiCard from "../components/SushiCard";
-const SushiCard = lazy(() => import("../components/SushiCard"));
+import SushiCard from "../components/SushiCard";
+import Loading from "../components/Loading";
 import axios from "axios";
-import { paginationAtom } from "../state";
+import { paginationAtom, feedLoadingAtom } from "../state";
 import { useAtom } from "jotai";
 
 function FeedPage() {
@@ -23,9 +23,11 @@ function FeedPage() {
   const [sushiData, setSushiData] = useState([]);
   const [error, setError] = useState(false);
   const [pagination, setPagination] = useAtom(paginationAtom);
+  const [feedLoading, setFeedLoading] = useAtom(feedLoadingAtom);
 
   useEffect(() => {
     initTE({ Collapse, Ripple });
+    setFeedLoading(true);
     fetchSushiFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -71,7 +73,7 @@ function FeedPage() {
         };
       }
 
-      console.log("NEW PAGINATION", newPagination);
+      // console.log("NEW PAGINATION", newPagination);
       setPagination(newPagination);
     } catch (err) {
       console.log(err);
@@ -184,11 +186,9 @@ function FeedPage() {
         </div>
       )}
       <div className="grid-cols-1 sm:grid md:grid-cols-1 ">
-        {sushiData.map((sushi, index) => (
+        {feedLoading ? <Loading /> : sushiData.map((sushi, index) => (
           <div key={index}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <SushiCard title={sushi.title} image={sushi.signedURL} />
-            </Suspense>
+            <SushiCard title={sushi.title} image={sushi.signedURL} />
           </div>
         ))}
       </div>
