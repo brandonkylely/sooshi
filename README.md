@@ -10,7 +10,7 @@ https://sooshi.vercel.app/
 
 Frameworks and Libraries: React.js, Express.js, JWT, Dynamoose, Vite, TailwindCSS
 
-Agile/Cloud: AWS (Lambda, DynamoDB, API Gateway, S3), Claudia.js, Docker, Gitlab,
+Agile/Cloud: AWS (Lambda, DynamoDB, API Gateway, S3), Claudia.js, Docker, Gitlab CI
 
 ## Trello
 
