@@ -1,7 +1,7 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect, useState } from "react";
-import { useSetAtom } from "jotai";
-import { userAtom } from "../state";
+import { useAtom, useSetAtom } from "jotai";
+import { userAtom, devAPIAtom } from "../state";
 import token from "../utils/token";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -26,10 +26,19 @@ function LoginForm() {
     setError(false);
   };
 
+  const [devAPI] = useAtom(devAPIAtom);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/login", formData);
+      let apiURL;
+      if (devAPI) {
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL =
+          "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
+      const { data } = await axios.post(`${apiURL}/api/auth/login`, formData);
 
       // Store token in local storage;
       token.login(data.token);
@@ -39,7 +48,7 @@ function LoginForm() {
       setUser(user);
 
       setError(false);
-      
+
       // Redirect to feed page
       navigate("/feed");
     } catch (err) {

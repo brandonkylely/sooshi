@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import axios from "axios";
 import tokenUtil from "../utils/token";
+import { devAPIAtom } from "../state";
+import { useAtom } from "jotai";
 
 function PostPage() {
   const [title, setTitle] = useState("");
@@ -24,10 +26,11 @@ function PostPage() {
   const handleSetTitle = (e) => {
     setTitle(e.target.value);
   };
- const navigate = useNavigate();
- const handleNavigate = () => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
     navigate("/feed");
   };
+  const [devAPI] = useAtom(devAPIAtom);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -40,7 +43,14 @@ function PostPage() {
       formData.append("title", title);
       formData.append("image", image);
       formData.append("decodedUID", decodedUID);
-      await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/upload", formData);
+      let apiURL;
+      if (devAPI) {
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL =
+          "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
+      await axios.post(`${apiURL}/api/auth/upload`, formData);
       // console.log("DATA FROM BACKEND", data);
       navigate("/feed");
     } catch (err) {

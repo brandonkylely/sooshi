@@ -1,7 +1,7 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect, useState } from "react";
-import { useSetAtom } from "jotai";
-import { userAtom } from "../state";
+import { useAtom, useSetAtom } from "jotai";
+import { userAtom, devAPIAtom } from "../state";
 import token from "../utils/token";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -26,11 +26,23 @@ function RegisterForm() {
     setError(false);
   };
 
+  const [devAPI] = useAtom(devAPIAtom);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      let apiURL;
+      if (devAPI) {
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL =
+          "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
       // console.log(formData);
-      const { data } = await axios.post("https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest/api/auth/register", formData);
+      const { data } = await axios.post(
+        `${apiURL}/api/auth/register`,
+        formData
+      );
       // console.log("DATA FROM BACKEND", data);
 
       // Store token in local storage;
