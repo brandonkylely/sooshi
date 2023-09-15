@@ -7,6 +7,7 @@ function Pagination() {
   const handlePreviousPage = () => {
     setPagination({
       pageNumber: pagination.pageNumber - 1,
+      lastKeyData: pagination.lastKeyData
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);
@@ -15,6 +16,7 @@ function Pagination() {
   const handleNextPage = () => {
     setPagination({
       pageNumber: pagination.pageNumber + 1,
+      lastKeyData: pagination.lastKeyData
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);
