@@ -117,16 +117,20 @@ exports.getSushiFeed = async function (req, res) {
     const { lastKeyData } = req.query;
     const lastKey = { id: lastKeyData };
     const limit = 10;
+    let sushiData;
 
     if (lastKeyData) {
-      const sushiData = await Sushi.scan().limit(limit).startAt(lastKey).exec();
-      console.log(sushiData);
-      return res.json({ sushiData, lastKey: sushiData.lastKey });
-    } else {
-      const sushiData = await Sushi.scan().limit(limit).exec();
+      sushiData = await Sushi.scan().limit(limit).startAt(lastKey).exec();
       // console.log(sushiData);
-      return res.json({ sushiData, lastKey: sushiData.lastKey });
+    } else {
+      sushiData = await Sushi.scan().limit(limit).exec();
+      // console.log(sushiData);
     }
+    // Sort by timestamp
+    sushiData = sushiData.sort((a, b) => b.createdAt - a.createdAt);
+
+    return res.json({ sushiData, lastKey: sushiData.lastKey });
+
   } catch (err) {
     console.error(err);
     res.send(err);
