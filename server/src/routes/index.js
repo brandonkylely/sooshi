@@ -2,7 +2,7 @@ const router = require('express').Router();
 const authRoutes = require('./Auth.routes')
 
 router.get('/', (req, res) => {
-  res.send('Last Updated: 9/15/2023')
+  res.send('Last Updated: 9/19/2023')
 })
 
 // Import Auth routes
