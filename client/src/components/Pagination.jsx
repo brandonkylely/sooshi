@@ -7,7 +7,7 @@ function Pagination() {
   const handlePreviousPage = () => {
     setPagination({
       pageNumber: pagination.pageNumber - 1,
-      lastKeyData: pagination.lastKeyData
+      lastKeyData: pagination.lastKeyData,
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);
@@ -16,7 +16,7 @@ function Pagination() {
   const handleNextPage = () => {
     setPagination({
       pageNumber: pagination.pageNumber + 1,
-      lastKeyData: pagination.lastKeyData
+      lastKeyData: pagination.lastKeyData,
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);
@@ -42,14 +42,18 @@ function Pagination() {
             {pagination && pagination.pageNumber}
           </button>
         </li>
-        <li>
-          <button
-            className="relative block rounded bg-transparent px-3 py-1.5 text-md text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
-            onClick={handleNextPage}
-          >
-            Next
-          </button>
-        </li>
+        {!pagination.lastKeyData ? (
+          <div></div>
+        ) : (
+          <li>
+            <button
+              className="relative block rounded bg-transparent px-3 py-1.5 text-md text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+              onClick={handleNextPage}
+            >
+              Next
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

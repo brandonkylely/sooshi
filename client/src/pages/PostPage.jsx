@@ -18,9 +18,10 @@ function PostPage() {
 
   useEffect(() => {
     initTE({ Input, Ripple });
-    if (!tokenUtil.getToken()){
+    if (!tokenUtil.getToken()) {
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSetImage = (e) => {
