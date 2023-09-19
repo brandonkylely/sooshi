@@ -7,11 +7,15 @@ const sushiSchema = new dynamoose.Schema({
   },
   "userId": {
     type: String,
+    rangeKey: true, // Primary sort key
   },
   "title": String,
   "image": String,
-}, {
-  "timestamps": true
+  "timestamp": {
+    type: Date,
+    default: new Date(),
+    index: true, // Global Secondary Index
+  },
 })
 
 const Sushi = dynamoose.model("Sushi", sushiSchema)
