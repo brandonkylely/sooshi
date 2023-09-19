@@ -13,6 +13,7 @@ const tokenUtil = {
       const isExpired = tokenUtil.isExpired(idToken);
       if (isExpired) {
         tokenUtil.logout();
+        return null;
       }
       return tokenUtil.decode(idToken);
     }

@@ -18,6 +18,9 @@ function PostPage() {
 
   useEffect(() => {
     initTE({ Input, Ripple });
+    if (!tokenUtil.getToken()){
+      navigate("/login");
+    }
   }, []);
 
   const handleSetImage = (e) => {
