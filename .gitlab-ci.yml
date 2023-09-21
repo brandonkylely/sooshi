@@ -21,13 +21,12 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
+client-build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - echo "Building application..."
-    - npm run install
     - echo "Building React application..."
     - cd client
+    - npm install
     - npm run build
     - echo "React application built."
   artifacts:
@@ -48,7 +47,7 @@ lint-test-job:   # This job also runs in the test stage.
     - npm run lint
     - echo "Linting complete."
 
-deploy-job:      # This job runs in the deploy stage.
+client-deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
   script:
@@ -57,6 +56,11 @@ deploy-job:      # This job runs in the deploy stage.
     - vercel --token $VERCEL_TOKEN --prod
     - cd ..
     - echo "Vercel application successfully deployed."
+
+server-deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
     - echo "Updating Lambda..."
     - cd server
     - claudia update
