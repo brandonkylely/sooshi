@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, ContactShadows, Float } from "@react-three/drei";
-import { Color } from "three";
 
 function Model(props) {
   const { scene } = useGLTF("sushi.gltf");
@@ -8,9 +7,8 @@ function Model(props) {
 }
 
 function Scene() {
-  const backgroundColor = new Color("black");
   return (
-    <div className="w-screen h-screen absolute">
+    <div className="w-full h-screen absolute">
       <Canvas
         camera={{
           fov: 45,

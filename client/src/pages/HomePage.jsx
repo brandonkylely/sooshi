@@ -17,9 +17,9 @@ function HomePage() {
   return (
     <div className="overflow-hidden">
       <Navbar />
-      <div className="h-[860px]">
+      <div className="h-[820px] bg-slate-800">
         <Scene />
-        <div className="w-screen min-h-full text-rose-50">
+        <div className="w-full min-h-full text-rose-50">
           <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig">
             Sooshi
           </h1>
