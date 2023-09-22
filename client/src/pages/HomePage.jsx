@@ -1,15 +1,17 @@
 import { Collapse, Ripple, initTE } from "tw-elements";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import RegisterForm from "../components/RegisterForm";
 import LoginForm from "../components/LoginForm";
 import Scene from "../components/Model";
+import { useAtom } from "jotai";
+import { homePageFormChangeAtom } from "../state";
 
 function HomePage() {
-  const [formChange, setFormChange] = useState(false);
+  const [formChange, setFormChange] = useAtom(homePageFormChangeAtom);
   const handleSetForm = () => {
-    setFormChange(!formChange);
+    setFormChange(true);
   };
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import { atom } from "jotai";
 export const userAtom = atom(null);
 export const paginationAtom = atom({ pageNumber: 1, lastKeyData: null });
 export const feedLoadingAtom = atom(false);
+export const homePageFormChangeAtom = atom(false);
 
 // Development only
 // Check if we're in dev mode, used to render Navbar button for dev API switch

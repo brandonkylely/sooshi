@@ -1,12 +1,16 @@
 import { Ripple, Input, initTE } from "tw-elements";
 import { useEffect, useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
-import { userAtom, devAPIAtom } from "../state";
+import { userAtom, devAPIAtom, homePageFormChangeAtom } from "../state";
 import token from "../utils/token";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const [formChange, setFormChange] = useAtom(homePageFormChangeAtom);
+  const handleSetFormChange = () => {
+    setFormChange(false);
+  };
   const navigate = useNavigate();
   useEffect(() => {
     initTE({ Input, Ripple });
@@ -199,12 +203,12 @@ function LoginForm() {
         {/*Register link*/}
         <p className="mt-6 text-center text-slate-800 dark:text-neutral-200">
           Not a member? &nbsp;
-          <a
-            href="/"
+          <button
+            onClick={handleSetFormChange}
             className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
           >
             Register
-          </a>
+          </button>
         </p>
       </form>
     </div>
