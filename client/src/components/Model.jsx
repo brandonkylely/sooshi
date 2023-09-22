@@ -14,7 +14,7 @@ function Model(props) {
 
 function Scene() {
   return (
-    <div className="w-full h-screen absolute">
+    <div className="w-full h-full absolute bg-slate-800">
       <Canvas
         camera={{
           fov: 45,
