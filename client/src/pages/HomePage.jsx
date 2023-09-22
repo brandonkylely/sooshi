@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import RegisterForm from "../components/RegisterForm";
 import { useNavigate } from "react-router-dom";
+import Model from "../components/Model";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function HomePage() {
   return (
     <div className="overflow-hidden">
       <Navbar />
+      <Model />
       <div className="h-[860px]">
         <div className="bg-hero-pattern bg-cover w-screen min-h-full text-rose-50">
           <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig">
