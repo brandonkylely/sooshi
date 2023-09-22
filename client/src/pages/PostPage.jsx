@@ -19,7 +19,7 @@ function PostPage() {
   useEffect(() => {
     initTE({ Input, Ripple });
     if (!tokenUtil.getToken()) {
-      navigate("/login");
+      navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

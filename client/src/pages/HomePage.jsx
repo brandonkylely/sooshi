@@ -28,8 +28,8 @@ function HomePage() {
               Sooshi
             </h1>
             <div className="ml-56 mt-4 font-cour">
-                  ...a sooshi-al media platform
-                </div>
+              ...a sooshi-al media platform
+            </div>
             {formChange ? (
               <>
                 <div className="w-[500px] ml-40 mt-24 text-black font-chivo">
@@ -38,7 +38,6 @@ function HomePage() {
               </>
             ) : (
               <>
-
                 <div className="w-[500px] ml-40 mt-4 pt-24 flex justify-between font-chivo">
                   {/* Register */}
                   <div className="">
@@ -65,13 +64,12 @@ function HomePage() {
                     </div>
                   </div>
                   <div className="">
-
-                  <button
-                    className="inline-block bg-neutral-100 bg-opacity-20 rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-slate-700 hover:text-rose-50 focus:text-rose-50 focus:outline-none focus:ring-0 active:text-rose-50"
-                    onClick={handleSetForm}
+                    <button
+                      className="inline-block bg-neutral-100 bg-opacity-20 rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-slate-700 hover:text-rose-50 focus:text-rose-50 focus:outline-none focus:ring-0 active:text-rose-50"
+                      onClick={handleSetForm}
                     >
-                    Login
-                  </button>
+                      Login
+                    </button>
                   </div>
                 </div>
               </>
@@ -79,7 +77,6 @@ function HomePage() {
           </div>
         </div>
       </div>
-
 
       <Footer />
     </div>
