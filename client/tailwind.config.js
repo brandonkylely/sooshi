@@ -12,10 +12,10 @@ export default {
         'cour': ['Courgette', 'cursive'],
         'sig': ['Sigmar', 'cursive']
       },
-      backgroundImage: {
-        'hero-pattern': "url('./sooshi-hero.jpg')",
-        // 'footer-texture': "url('/img/footer-texture.png')",
-      }
+      // backgroundImage: {
+      //   // 'hero-pattern': "url('./sooshi-hero.jpg')", hero no longer in use
+      //   // 'footer-texture': "url('/img/footer-texture.png')",
+      // }
     },
   },
   /*eslint-env node*/
