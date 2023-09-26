@@ -3,20 +3,27 @@ import { useAtom } from "jotai";
 
 function Pagination() {
   const [pagination, setPagination] = useAtom(paginationAtom);
-
+  let tempHist;
   const handlePreviousPage = () => {
+    tempHist = pagination.history ? [...pagination.history] : []
+    const prevPage = tempHist.pop();
+    prevPage.lastKeyData = tempHist.length !== 0 ? tempHist[tempHist.length - 1].lastKeyData : null;
     setPagination({
-      pageNumber: pagination.pageNumber - 1,
-      lastKeyData: pagination.lastKeyData,
+      ...prevPage,
+      history: tempHist
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);
+    
   };
 
   const handleNextPage = () => {
+    tempHist = pagination.history ? [...pagination.history] : []
+    tempHist.push({pageNumber: pagination.pageNumber, lastKeyData: pagination.lastKeyData});
     setPagination({
       pageNumber: pagination.pageNumber + 1,
       lastKeyData: pagination.lastKeyData,
+      history: tempHist
     });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     console.log("pagination", pagination);

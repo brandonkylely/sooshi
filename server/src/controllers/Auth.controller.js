@@ -112,7 +112,7 @@ exports.getSushiFeed = async function (req, res) {
     const { lastKeyId, lastKeyStatus, lastKeyTimestamp } = req.query;
     const lastKey = { "id": lastKeyId, "status": lastKeyStatus, "timestamp": Number(lastKeyTimestamp) };
     console.log(lastKey);
-    const limit = 10;
+    const limit = 2;
     let sushiData;
 
     if (lastKey.id && lastKey.status && lastKey.timestamp) {

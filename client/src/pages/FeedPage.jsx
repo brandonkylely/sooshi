@@ -37,7 +37,7 @@ function FeedPage() {
     setFeedLoading(true);
     fetchSushiFeed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.pageNumber]);
+  }, [pagination.history]);
 
   /**
    * Make API call to get all posts, render them in SushiCard components, and display them on the page.
@@ -67,22 +67,16 @@ function FeedPage() {
       }
 
       setSushiData(data.sushiData);
-      let newPagination;
+      let tempPagination = pagination;
       // prevents error if last ket doesnt exist, IE: reaching the last page
       if (data.lastKey) {
-        newPagination = {
-          pageNumber: pagination.pageNumber,
-          lastKeyData: data.lastKey
-        };
+        tempPagination.lastKeyData = data.lastKey;
       } else {
-        newPagination = {
-          pageNumber: pagination.pageNumber,
-          lastKeyData: null
-        };
+        tempPagination.lastKeyData = null;
       }
+      
 
-      // console.log("NEW PAGINATION", newPagination);
-      setPagination(newPagination);
+      setPagination(tempPagination);
       setTimeout(() => {
         setFeedLoading(false);
       }, 30);
