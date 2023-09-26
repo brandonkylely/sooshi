@@ -1,67 +1,93 @@
-# This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-#
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
 # To contribute improvements to CI/CD templates, please follow the Development guide at:
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+# ---
+# Predefined Variables Resource:
+# https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 
-stages:          # List of stages for jobs, and their order of execution
+
+stages:
   - build
   - test
   - deploy
 
-client-build-job:       # This job runs in the build stage, which runs first.
+variables:
+  VERCEL_TOKEN: $VERCEL_TOKEN
+  VERCEL_URL: $VERCEL_URL
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  JWT_SECRET: $JWT_SECRET
+  AWS_BUCKET_NAME: $AWS_BUCKET_NAME
+
+client-build:
   stage: build
   script:
-    - echo "Building React application..."
+    - echo "Client build started..."
     - cd client
     - npm install
     - npm run build
-    - echo "React application built."
+    - echo "Client build complete."
   artifacts:
     paths:
       - client/dist/
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+unit-test:
+  stage: test
   script:
-    - echo "Running unit tests..."
+    - echo "Client unit tests started..."
+    # - cd client
     # - npm run test
-    - echo "Unit tests complete."
+    - echo "Client unit tests complete."
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+client-lint-test:
+  stage: test
   script:
-    - echo "Linting code..."
+    - echo "Client lint tests started..."
+    - cd client
     - npm run lint
-    - echo "Linting complete."
+    - echo "Client lint tests complete."
 
-client-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+server-unit-test:
+  stage: test
+  script:
+    - echo "Server unit tests started..."
+    # - cd server
+    # - npm run test
+    - echo "Server unit tests complete."
+
+client-deploy:
+  stage: deploy
   environment: production
   script:
-    - echo "Deploying application..."
+    - echo "Client deployment started..."
     - cd client
     - vercel --token $VERCEL_TOKEN --prod
-    - cd ..
-    - echo "Vercel application successfully deployed."
+    - echo "Client deployment complete. $VERCEL_URL"
+  only:
+    - main
+  when: on_success
+  notify:
+    email:
+      on_success: always
+      recipients:
+        - brandonkly@ucla.edu
 
-server-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+server-deploy:
+  stage: deploy
   environment: production
   script:
-    - echo "Updating Lambda..."
+    - echo "Server(less) deployment started..."
     - cd server
     - claudia update
-    - echo "Lambda successfully updated."
+    - echo "Server(less) deployment complete."
+  only:
+    - main
+  when: on_success
+  notify:
+    email:
+      on_success: always
+      recipients:
+        - brandonkly@ucla.edu
+
