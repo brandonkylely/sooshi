@@ -106,20 +106,16 @@ exports.upload = async function (req, res) {
   }
 };
 
-/**
- * get Sushi Feed
- * TODO: Add pagination
- * TODO: Check for sorting, might need to use .query() instead of .scan()
- */
 exports.getSushiFeed = async function (req, res) {
   try {
     // Pagination
-    const { lastKeyData } = req.query;
-    const lastKey = { id: lastKeyData };
+    const { lastKeyId, lastKeyStatus, lastKeyTimestamp } = req.query;
+    const lastKey = { "id": lastKeyId, "status": lastKeyStatus, "timestamp": Number(lastKeyTimestamp) };
+    console.log(lastKey);
     const limit = 10;
     let sushiData;
 
-    if (lastKeyData) {
+    if (lastKey.id && lastKey.status && lastKey.timestamp) {
       sushiData = await Sushi.query("status")
         .eq("active")
         .using("status-timestamp-index")
@@ -127,7 +123,7 @@ exports.getSushiFeed = async function (req, res) {
         .sort("descending")
         .limit(limit)
         .exec();
-      // console.log(sushiData);
+      console.log(sushiData);
     } else {
       sushiData = await Sushi.query("status")
         .eq("active")

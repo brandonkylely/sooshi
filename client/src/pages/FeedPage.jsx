@@ -49,7 +49,7 @@ function FeedPage() {
       if (pagination.lastKeyData === null) {
         query = "";
       } else {
-        query = `?lastKeyData=${pagination.lastKeyData}`;
+        query = `?lastKeyId=${pagination.lastKeyData.id}&lastKeyStatus=${pagination.lastKeyData.status}&lastKeyTimestamp=${pagination.lastKeyData.timestamp}`;
       }
       let apiURL;
       if (devAPI){
@@ -72,7 +72,7 @@ function FeedPage() {
       if (data.lastKey) {
         newPagination = {
           pageNumber: pagination.pageNumber,
-          lastKeyData: data.lastKey.id
+          lastKeyData: data.lastKey
         };
       } else {
         newPagination = {
