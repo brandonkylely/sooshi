@@ -58,7 +58,7 @@ function FeedPage() {
         apiURL = "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
       }
       const { data } = await axios.get(`${apiURL}/api/auth/getSushiFeed${query}`);
-      // console.log("DATA FROM BACKEND", data);
+      console.log("DATA FROM BACKEND", data);
 
       for (let i = 0; i < data.sushiData.length; i++) {
         data.sushiData[i].signedURL = `${await fetchSushiURL(
