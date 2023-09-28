@@ -37,8 +37,9 @@ unit-test:
   stage: test
   script:
     - echo "Client unit tests started..."
-    # - cd client
-    # - npm run test
+    - cd client
+    - npm install
+    - npm run test
     - echo "Client unit tests complete."
 
 client-lint-test:
@@ -46,6 +47,7 @@ client-lint-test:
   script:
     - echo "Client lint tests started..."
     - cd client
+    - npm install
     - npm run lint
     - echo "Client lint tests complete."
 
@@ -63,6 +65,8 @@ client-deploy:
   script:
     - echo "Client deployment started..."
     - cd client
+    - npm install -g vercel
+    - npm install
     - vercel --token $VERCEL_TOKEN --prod
     - echo "Client deployment complete. $VERCEL_URL"
   only:
@@ -80,6 +84,7 @@ server-deploy:
   script:
     - echo "Server(less) deployment started..."
     - cd server
+    - npm install
     - claudia update
     - echo "Server(less) deployment complete."
   only:
