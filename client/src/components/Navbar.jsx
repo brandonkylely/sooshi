@@ -57,6 +57,7 @@ function Navbar() {
           aria-controls="navbarSupportedContent1"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          data-testid="nav-hamburger-button"
         >
           {/* Hamburger icon */}
           <span className="[&>svg]:w-7">

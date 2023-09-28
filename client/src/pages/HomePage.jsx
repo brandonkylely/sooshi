@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import RegisterForm from "../components/RegisterForm";
 import LoginForm from "../components/LoginForm";
-import Scene from "../components/Model";
+import Scene from "../components/Scene";
 import { useAtom } from "jotai";
 import { homePageFormChangeAtom } from "../state";
 
@@ -24,10 +24,10 @@ function HomePage() {
       <div className="h-[820px]">
         <div className="absolute">
           <div className="w-full min-h-full text-rose-50">
-            <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig">
+            <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig" data-testid="sooshi-title">
               Sooshi
             </h1>
-            <div className="ml-56 mt-4 font-cour">
+            <div className="ml-56 mt-4 font-cour" data-testid="title-caption">
               ...a sooshi-al media platform
             </div>
             {formChange ? (
@@ -40,7 +40,7 @@ function HomePage() {
               <>
                 <div className="w-[500px] ml-40 mt-4 pt-24 flex justify-between font-chivo">
                   {/* Register */}
-                  <div className="">
+                  <div className="" data-testid="register-home">
                     <button
                       className="inline-block bg-neutral-100 bg-opacity-20 rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-slate-700 hover:text-rose-50 focus:text-rose-50 focus:outline-none focus:ring-0 active:text-rose-50"
                       type="button"
@@ -63,7 +63,7 @@ function HomePage() {
                       </div>
                     </div>
                   </div>
-                  <div className="">
+                  <div className="" data-testid="login-home">
                     <button
                       className="inline-block bg-neutral-100 bg-opacity-20 rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-slate-700 hover:text-rose-50 focus:text-rose-50 focus:outline-none focus:ring-0 active:text-rose-50"
                       onClick={handleSetForm}
