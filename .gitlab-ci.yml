@@ -72,11 +72,7 @@ client-deploy:
   only:
     - main
   when: on_success
-  notify:
-    email:
-      on_success: always
-      recipients:
-        - brandonkly@ucla.edu
+
 
 server-deploy:
   stage: deploy
@@ -90,9 +86,4 @@ server-deploy:
   only:
     - main
   when: on_success
-  notify:
-    email:
-      on_success: always
-      recipients:
-        - brandonkly@ucla.edu
 
