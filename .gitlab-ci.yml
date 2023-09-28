@@ -7,7 +7,6 @@
 # Predefined Variables Resource:
 # https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 
-image: node:latest
 
 stages:
   - build
@@ -22,25 +21,20 @@ variables:
   JWT_SECRET: $JWT_SECRET
   AWS_BUCKET_NAME: $AWS_BUCKET_NAME
 
-client-build:
+client-build-job:
   stage: build
+  image: node
   script:
     - echo "Client build started..."
     - cd client
     - npm install
     - npm run build
     - echo "Client build complete."
-  # artifacts:
-  #   paths:
-  #     - client/dist/
+  artifacts:
+    paths:
+      - client/dist/
 
-# Educational reference:
-# test-build:
-#   dependencies:
-#     - client-build
-# ^Will use client-build artifact
-
-unit-test:
+client-unit-test-job:
   stage: test
   script:
     - echo "Client unit tests started..."
@@ -49,7 +43,7 @@ unit-test:
     - npm run test
     - echo "Client unit tests complete."
 
-client-lint-test:
+client-lint-test-job:
   stage: test
   script:
     - echo "Client lint tests started..."
@@ -58,7 +52,7 @@ client-lint-test:
     - npm run lint
     - echo "Client lint tests complete."
 
-server-unit-test:
+server-unit-test-job:
   stage: test
   script:
     - echo "Server unit tests started..."
@@ -66,7 +60,7 @@ server-unit-test:
     # - npm run test
     - echo "Server unit tests complete."
 
-client-deploy:
+client-deploy-job:
   stage: deploy
   environment: production
   script:
@@ -75,12 +69,13 @@ client-deploy:
     - npm install -g vercel
     - npm install
     - vercel --token $VERCEL_TOKEN --prod
-    - echo "Client deployment complete. $VERCEL_URL"
+    - echo "Client deployment complete."
   only:
     - main
   when: on_success
 
-# server-deploy:
+
+# server-deploy-job:
 #   stage: deploy
 #   environment: production
 #   script:
