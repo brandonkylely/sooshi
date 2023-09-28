@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, ContactShadows, Float } from "@react-three/drei";
+// The below import triggers the following error during unit testing:
+// WARNING: Multiple instances of Three.js being imported.
+// This does not seem to affect performance.
 import { useSpring, animated } from '@react-spring/three'
 
 function Model(props) {
