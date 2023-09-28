@@ -7,6 +7,7 @@
 # Predefined Variables Resource:
 # https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
 
+image: node:latest
 
 stages:
   - build
@@ -23,7 +24,6 @@ variables:
 
 client-build:
   stage: build
-  image: node
   script:
     - echo "Client build started..."
     - cd client
