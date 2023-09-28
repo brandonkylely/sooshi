@@ -7,11 +7,35 @@ import LoginForm from "../components/LoginForm";
 import Scene from "../components/Scene";
 import { useAtom } from "jotai";
 import { homePageFormChangeAtom } from "../state";
+import { devAPIAtom } from "../state";
+import axios from "axios";
 
 function HomePage() {
   const [formChange, setFormChange] = useAtom(homePageFormChangeAtom);
   const handleSetForm = () => {
     setFormChange(true);
+  };
+  const [devAPI] = useAtom(devAPIAtom);
+
+  useEffect(() => {
+    wakeUp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Wake up Lambda function to prevent cold start
+  const wakeUp = async () => {
+    try {
+      let apiURL;
+      if (devAPI) {
+        apiURL = "http://localhost:3001";
+      } else {
+        apiURL =
+          "https://f997a554a1.execute-api.us-west-1.amazonaws.com/latest";
+      }
+      await axios.get(`${apiURL}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -24,7 +48,10 @@ function HomePage() {
       <div className="h-[820px]">
         <div className="absolute">
           <div className="w-full min-h-full text-rose-50">
-            <h1 className="text-center w-48 ml-48 pt-60 text-6xl font-sig" data-testid="sooshi-title">
+            <h1
+              className="text-center w-48 ml-48 pt-60 text-6xl font-sig"
+              data-testid="sooshi-title"
+            >
               Sooshi
             </h1>
             <div className="ml-56 mt-4 font-cour" data-testid="title-caption">
