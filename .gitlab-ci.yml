@@ -23,15 +23,22 @@ variables:
 
 client-build:
   stage: build
+  image: node
   script:
     - echo "Client build started..."
     - cd client
     - npm install
     - npm run build
     - echo "Client build complete."
-  artifacts:
-    paths:
-      - client/dist/
+  # artifacts:
+  #   paths:
+  #     - client/dist/
+
+# Educational reference:
+# test-build:
+#   dependencies:
+#     - client-build
+# ^Will use client-build artifact
 
 unit-test:
   stage: test
@@ -73,17 +80,16 @@ client-deploy:
     - main
   when: on_success
 
-
-server-deploy:
-  stage: deploy
-  environment: production
-  script:
-    - echo "Server(less) deployment started..."
-    - cd server
-    - npm install
-    - claudia update
-    - echo "Server(less) deployment complete."
-  only:
-    - main
-  when: on_success
+# server-deploy:
+#   stage: deploy
+#   environment: production
+#   script:
+#     - echo "Server(less) deployment started..."
+#     - cd server
+#     - npm install
+#     - claudia update
+#     - echo "Server(less) deployment complete."
+#   only:
+#     - main
+#   when: on_success
 
