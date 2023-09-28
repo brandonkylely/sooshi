@@ -18,5 +18,6 @@ You can see my progress on the development and maintenance of Sooshi here:
 
 https://trello.com/b/CGd3IDHd/sooshi-kanban
 
-## Credit
-Sushi Banner Image by [Tamas Pap](https://unsplash.com/photos/zali_zGDWo8)
+## Site Image
+
+![site-image](https://brandonkylely.github.io/r3-portfolio/sooshi.jpg)
