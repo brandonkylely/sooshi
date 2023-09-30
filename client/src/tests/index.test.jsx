@@ -1,12 +1,18 @@
 // Integration tests
-import { expect, test, vi } from "vitest";
+import { afterEach, expect, test, vi } from "vitest";
 import { MemoryRouter as Router } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import HomePage from "../pages/HomePage";
 import FeedPage from "../pages/FeedPage";
 import PostPage from "../pages/PostPage";
+import axios from "axios";
 
+afterEach(() => {
+  cleanup();
+});
+
+// Mocking tw-elements
 const mockInitTE = vi.fn();
 const mockInput = vi.fn();
 const mockCollapse = vi.fn();
@@ -94,6 +100,58 @@ test("Post Page Unit Test", () => {
 
   const goToFeedElement = screen.getByTestId("go-to-feed-button");
   expect(goToFeedElement).toBeInTheDocument();
+});
+
+test("Feed Page Loads Sushi Cards", async () => {
+  vi.mock("axios");
+
+  const sushiDataMock = {
+    data: {
+      sushiData: [
+        {
+          image: "image_name1.jpg",
+          userId: "user_id_placeholder",
+          status: "active",
+          timestamp: "2023-09-19T22:42:45.946Z",
+          id: "id_placeholder",
+          title: "Image 1",
+          signedURL: "https://picsum.photos/600/450",
+        },
+        {
+          image: "image_name2.jpg",
+          userId: "user_id_placeholder",
+          status: "active",
+          timestamp: "2023-09-19T22:04:51.845Z",
+          id: "id_placeholder",
+          title: "Image 2",
+          signedURL: "https://picsum.photos/600/450",
+        },
+      ],
+      lastKey: {
+        id: "last_key_placeholder",
+        status: "active",
+        timestamp: 1695161091845,
+      },
+    },
+  };
+
+  const urlDataMock = "https://picsum.photos/600/450";
+
+  axios.get
+    .mockResolvedValue(urlDataMock)
+    .mockResolvedValueOnce(sushiDataMock)
+    .mockResolvedValueOnce(sushiDataMock);
+
+  render(
+    <Router>
+      <FeedPage />
+    </Router>
+  );
+
+  await waitFor(() => {
+    const sushiCardElement = screen.getByTestId("sushi-card");
+    expect(sushiCardElement).toBeInTheDocument();
+  });
 });
 
 // test('Feed Page Integration Test', async () => {
