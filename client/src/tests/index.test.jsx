@@ -5,6 +5,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import HomePage from "../pages/HomePage";
 import FeedPage from "../pages/FeedPage";
+import PostPage from "../pages/PostPage";
 
 const mockInitTE = vi.fn();
 const mockInput = vi.fn();
@@ -74,6 +75,25 @@ test("Feed Page Unit Test", () => {
 
   const loadingElement = screen.getByTestId("loading");
   expect(loadingElement).toBeInTheDocument();
+});
+
+test("Post Page Unit Test", () => {
+  render(
+    <Router>
+      <PostPage />
+    </Router>
+  );
+
+  standardExpects();
+
+  const formElement = screen.getByTestId("post-form");
+  expect(formElement).toBeInTheDocument();
+
+  const titleElement = screen.getByTestId("post-page-title");
+  expect(titleElement).toBeInTheDocument();
+
+  const goToFeedElement = screen.getByTestId("go-to-feed-button");
+  expect(goToFeedElement).toBeInTheDocument();
 });
 
 // test('Feed Page Integration Test', async () => {

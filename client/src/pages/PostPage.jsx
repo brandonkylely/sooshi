@@ -68,7 +68,10 @@ function PostPage() {
     <div className="h-screen text-neutral-600">
       <Navbar />
       <div className="h-12 px-4 pt-1 justify-between flex">
-        <h2 className="text-4xl font-medium leading-tight text-rose-400 font-sig">
+        <h2
+          className="text-4xl font-medium leading-tight text-rose-400 font-sig"
+          data-testid="post-page-title"
+        >
           Sooshi
         </h2>
         <button
@@ -77,6 +80,7 @@ function PostPage() {
           data-te-ripple-init
           data-te-ripple-color="light"
           onClick={handleNavigate}
+          data-testid="go-to-feed-button"
         >
           Go to feed
         </button>
@@ -85,6 +89,7 @@ function PostPage() {
         onSubmit={handleFormSubmit}
         encType="multipart/form-data"
         className="h-2/3 w-80 mx-auto pt-32"
+        data-testid="post-form"
       >
         <div className="relative mb-12" data-te-input-wrapper-init>
           <input
