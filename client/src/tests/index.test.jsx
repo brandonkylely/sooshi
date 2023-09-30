@@ -6,22 +6,21 @@ import "@testing-library/jest-dom";
 import HomePage from "../pages/HomePage";
 import FeedPage from "../pages/FeedPage";
 
-
 const mockInitTE = vi.fn();
 const mockInput = vi.fn();
 const mockCollapse = vi.fn();
 const mockRipple = vi.fn();
 
 vi.mock("tw-elements", async () => {
-  const actual = await vi.importActual("tw-elements")
+  const actual = await vi.importActual("tw-elements");
   return {
     ...actual,
     initTE: () => mockInitTE,
     Input: () => mockInput,
     Collapse: () => mockCollapse,
     Ripple: () => mockRipple,
-  }
-})
+  };
+});
 
 // function toJson(component) {
 //   const result = component.toJSON();
@@ -34,11 +33,22 @@ test("Testing Library Works", () => {
   expect(true).toBe(true);
 });
 
-test("Home Page Unit Test", async () => {
+function standardExpects() {
+  const navbarElement = screen.getByTestId("navbar");
+  expect(navbarElement).toBeInTheDocument();
+
+  const footerElement = screen.getByTestId("footer");
+  expect(footerElement).toBeInTheDocument();
+}
+
+test("Home Page Unit Test", () => {
   render(
-  <Router>
-    <HomePage />
-  </Router>);
+    <Router>
+      <HomePage />
+    </Router>
+  );
+
+  standardExpects();
 
   const titleElement = screen.getByTestId("sooshi-title");
   expect(titleElement).toBeInTheDocument();
@@ -53,15 +63,18 @@ test("Home Page Unit Test", async () => {
   expect(loginElement).toBeInTheDocument();
 });
 
-test('Feed Page Unit Test', async () => {
+test("Feed Page Unit Test", () => {
   render(
-  <Router>
-    <FeedPage />
-  </Router>);
+    <Router>
+      <FeedPage />
+    </Router>
+  );
+
+  standardExpects();
 
   const loadingElement = screen.getByTestId("loading");
   expect(loadingElement).toBeInTheDocument();
-})
+});
 
 // test('Feed Page Integration Test', async () => {
 //   render(

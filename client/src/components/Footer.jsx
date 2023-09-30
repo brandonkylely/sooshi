@@ -2,7 +2,10 @@ function Footer() {
   return (
     <>
       {/* Footer container */}
-      <footer className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+      <footer
+        className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left"
+        data-testid="footer"
+      >
         <div className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
           <div className="mr-12 hidden lg:block">
             <span>Check out my social networks!</span>
@@ -35,7 +38,10 @@ function Footer() {
                 <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
               </svg>
             </a>
-            <a href="https://github.com/brandonkylely" className="text-neutral-600 dark:text-neutral-200">
+            <a
+              href="https://github.com/brandonkylely"
+              className="text-neutral-600 dark:text-neutral-200"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -65,7 +71,9 @@ function Footer() {
                 Sooshi
               </h6>
               <p>
-                Hey! This application is still in active development. If you&apos;d like to follow along, please check out my repository or Kanban board for updates. Thanks for visiting!
+                Hey! This application is still in active development. If
+                you&apos;d like to follow along, please check out my repository
+                or Kanban board for updates. Thanks for visiting!
               </p>
             </div>
             {/* Products section */}
@@ -74,17 +82,26 @@ function Footer() {
                 Developer Links
               </h6>
               <p className="mb-4">
-                <a href="https://github.com/brandonkylely/sooshi" className="text-neutral-600 dark:text-neutral-200">
+                <a
+                  href="https://github.com/brandonkylely/sooshi"
+                  className="text-neutral-600 dark:text-neutral-200"
+                >
                   Sooshi Repository
                 </a>
               </p>
               <p className="mb-4">
-                <a href="https://trello.com/b/CGd3IDHd/sooshi-kanban" className="text-neutral-600 dark:text-neutral-200">
+                <a
+                  href="https://trello.com/b/CGd3IDHd/sooshi-kanban"
+                  className="text-neutral-600 dark:text-neutral-200"
+                >
                   Sooshi Kanban Board
                 </a>
               </p>
               <p className="mb-4">
-                <a href="https://brandonkylely.github.io/r3-portfolio/" className="text-neutral-600 dark:text-neutral-200">
+                <a
+                  href="https://brandonkylely.github.io/r3-portfolio/"
+                  className="text-neutral-600 dark:text-neutral-200"
+                >
                   Developer Portfolio
                 </a>
               </p>
